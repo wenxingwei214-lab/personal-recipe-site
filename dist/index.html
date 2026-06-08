@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>首页 · 我的小厨房</title>
+  <meta name="description" content="把 Obsidian 里的家常菜、常做菜和下次想优化的小细节，整理成一个轻量、好看的个人菜谱网页。">
+  <link rel="stylesheet" href="src/styles.css">
+  <script src="src/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">我的小厨房</a>
+    <nav><a class="active" href="index.html">首页</a><a class="" href="recipes/index.html">全部菜谱</a><a class="" href="week/index.html">本周菜单</a><a class="" href="ingredients/index.html">食材索引</a></nav>
+  </header>
+  <main><section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Obsidian 驱动的个人菜谱</p>
+    <h1>我的小厨房</h1>
+    <p>把 Obsidian 里的家常菜、常做菜和下次想优化的小细节，整理成一个轻量、好看的个人菜谱网页。</p>
+    <div class="hero-actions">
+      <a class="button primary" href="recipes/index.html">查看全部菜谱</a>
+      <a class="button" href="week/index.html">安排本周菜单</a>
+    </div>
+  </div>
+  <img src="assets/images/cover-kitchen.svg" alt="温暖厨房里的菜谱和食材">
+</section>
+<section class="section">
+  <div class="section-head">
+    <h2>分类入口</h2>
+    <a href="recipes/index.html">全部 7 道</a>
+  </div>
+  <div class="category-grid"><a href="recipes/index.html?category=%E5%AE%B6%E5%B8%B8%E5%BF%AB%E6%89%8B">家常快手</a><a href="recipes/index.html?category=%E5%87%8F%E8%84%82%E9%A4%90">减脂餐</a><a href="recipes/index.html?category=%E6%B1%A4%E7%BE%B9">汤羹</a><a href="recipes/index.html?category=%E4%B8%80%E4%BA%BA%E9%A3%9F">一人食</a></div>
+</section>
+<section class="section">
+  <div class="section-head"><h2>常做菜</h2></div>
+  <div class="card-grid"><article class="recipe-card" data-category="一人食" data-tags="便当,鸡肉,高蛋白" data-tools="不粘锅,电饭煲" data-time="35">
+  <a href="recipes/sage-chicken-rice/index.html" aria-label="查看 香煎鸡腿饭">
+    <img src="assets/images/sage-chicken-rice.svg" alt="香煎鸡腿饭">
+    <div class="card-body">
+      <div class="card-kicker">一人食 · 常做</div>
+      <h3>香煎鸡腿饭</h3>
+      <p>35 分钟 · 中等 · 1 人份</p>
+      <div class="chips"><span>便当</span><span>鸡肉</span><span>高蛋白</span></div>
+    </div>
+  </a>
+</article><article class="recipe-card" data-category="家常快手" data-tags="快手菜,下饭菜,鸡蛋" data-tools="炒锅,硅胶铲" data-time="15">
+  <a href="recipes/tomato-eggs/index.html" aria-label="查看 番茄炒蛋">
+    <img src="assets/images/tomato-eggs.svg" alt="番茄炒蛋">
+    <div class="card-body">
+      <div class="card-kicker">家常快手 · 常做</div>
+      <h3>番茄炒蛋</h3>
+      <p>15 分钟 · 简单 · 2 人份</p>
+      <div class="chips"><span>快手菜</span><span>下饭菜</span><span>鸡蛋</span></div>
+    </div>
+  </a>
+</article></div>
+</section>
+<section class="section">
+  <div class="section-head"><h2>最近更新</h2></div>
+  <div class="card-grid"><article class="recipe-card" data-category="家常快手" data-tags="快手菜,下饭菜,鲮鱼罐头,油麦菜,家常菜" data-tools="炒锅" data-time="10">
+  <a href="recipes/dace-romaine-lettuce/index.html" aria-label="查看 鲮鱼油麦菜">
+    <img src="assets/images/dace-romaine-lettuce.jpg" alt="鲮鱼油麦菜">
+    <div class="card-body">
+      <div class="card-kicker">家常快手</div>
+      <h3>鲮鱼油麦菜</h3>
+      <p>10 分钟 · 简单 · 2 人份</p>
+      <div class="chips"><span>快手菜</span><span>下饭菜</span><span>鲮鱼罐头</span><span>油麦菜</span><span>家常菜</span></div>
+    </div>
+  </a>
+</article><article class="recipe-card" data-category="家常快手" data-tags="快手菜,下饭菜,腊肠,芸豆,家常菜" data-tools="炒锅" data-time="15">
+  <a href="recipes/lap-cheong-green-beans/index.html" aria-label="查看 芸豆炒腊肠">
+    <img src="assets/images/lap-cheong-green-beans.jpg" alt="芸豆炒腊肠">
+    <div class="card-body">
+      <div class="card-kicker">家常快手</div>
+      <h3>芸豆炒腊肠</h3>
+      <p>15 分钟 · 简单 · 2 人份</p>
+      <div class="chips"><span>快手菜</span><span>下饭菜</span><span>腊肠</span><span>芸豆</span><span>家常菜</span></div>
+    </div>
+  </a>
+</article><article class="recipe-card" data-category="家常快手" data-tags="沙姜鸡,鸡腿肉,下饭菜,砂锅菜,家常菜" data-tools="砂锅,炒锅" data-time="40">
+  <a href="recipes/sand-ginger-chicken/index.html" aria-label="查看 沙姜鸡煲">
+    <img src="assets/images/sand-ginger-chicken.jpg" alt="沙姜鸡煲">
+    <div class="card-body">
+      <div class="card-kicker">家常快手</div>
+      <h3>沙姜鸡煲</h3>
+      <p>40 分钟 · 中等 · 2 人份</p>
+      <div class="chips"><span>沙姜鸡</span><span>鸡腿肉</span><span>下饭菜</span><span>砂锅菜</span><span>家常菜</span></div>
+    </div>
+  </a>
+</article><article class="recipe-card" data-category="减脂餐" data-tags="减脂餐,高蛋白,牛排,芦笋,快手菜" data-tools="平底锅" data-time="15">
+  <a href="recipes/asparagus-steak/index.html" aria-label="查看 青芦笋煎牛排">
+    <img src="assets/images/asparagus-steak.jpg" alt="青芦笋煎牛排">
+    <div class="card-body">
+      <div class="card-kicker">减脂餐</div>
+      <h3>青芦笋煎牛排</h3>
+      <p>15 分钟 · 简单 · 1 人份</p>
+      <div class="chips"><span>减脂餐</span><span>高蛋白</span><span>牛排</span><span>芦笋</span><span>快手菜</span></div>
+    </div>
+  </a>
+</article></div>
+</section></main>
+  <footer>由 Obsidian Markdown 生成 · 只保留给自己真正会用的功能</footer>
+</body>
+</html>

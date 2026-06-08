@@ -1,0 +1,11 @@
+{
+  "name": "personal-recipe-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "new": "python3 scripts/new_recipe.py",
+    "build": "node scripts/build.js",
+    "serve": "node scripts/build.js && python3 -m http.server 4173 -d dist"
+  }
+}

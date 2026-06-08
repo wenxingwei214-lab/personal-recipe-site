@@ -1,0 +1,4 @@
+interface:
+  display_name: "菜谱采集入库"
+  short_description: "把小红书、抖音、网页或笔记中的菜谱整理为待审批 Markdown，并在确认后写入个人菜谱网站。"
+  default_prompt: "从我提供的菜谱素材中提取结构化信息，生成待审批菜谱，审批后纳入我的个人菜谱网站并关联生活汇总。"

@@ -1,0 +1,51 @@
+---
+title: 芸豆炒腊肠
+category: 家常快手
+tags:
+  - 快手菜
+  - 下饭菜
+  - 腊肠
+  - 芸豆
+  - 家常菜
+cover: /assets/images/lap-cheong-green-beans.jpg
+time: 15
+difficulty: 简单
+servings: 2
+calories: 0
+tools:
+  - 炒锅
+ingredients:
+  - name: 芸豆
+    amount: 1 盘
+  - name: 腊肠
+    amount: 1-2 根
+  - name: 大蒜
+    amount: 2-3 瓣
+  - name: 盐
+    amount: 适量
+favorite: false
+last_cooked: "2026-06-08"
+source_platform: 口述
+source_url: ""
+source_note: 4-生活汇总/02-美食探店/菜谱做法/2026-06-08 芸豆炒腊肠.md
+---
+
+## 步骤
+
+1. 芸豆洗净后斜切；腊肠切片；大蒜切成蒜末。
+2. 炒锅烧热，先放入腊肠煸炒。
+3. 腊肠出油、边缘略微焦香后，放入一点蒜末炒香。
+4. 放入斜切的芸豆，大火爆炒。
+5. 炒到芸豆颜色变深、熟透后，加适量盐调味。
+6. 翻炒均匀后出锅。
+
+## 注意事项
+
+- 芸豆一定要炒熟再吃，半生不熟容易不舒服。
+- 腊肠本身有咸味，盐要少量多次加。
+- 先煸腊肠可以把油脂和香味炒出来，后面炒芸豆会更香。
+
+## 下次优化
+
+- 记录腊肠用量和咸度，下次调整盐量。
+- 如果芸豆比较老，可以先焯水或多炒一会儿。

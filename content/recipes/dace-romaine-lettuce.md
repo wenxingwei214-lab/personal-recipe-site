@@ -1,0 +1,52 @@
+---
+title: 鲮鱼油麦菜
+category: 家常快手
+tags:
+  - 快手菜
+  - 下饭菜
+  - 鲮鱼罐头
+  - 油麦菜
+  - 家常菜
+cover: /assets/images/dace-romaine-lettuce.jpg
+time: 10
+difficulty: 简单
+servings: 2
+calories: 0
+tools:
+  - 炒锅
+ingredients:
+  - name: 油麦菜
+    amount: 1 把
+  - name: 豆豉鲮鱼罐头
+    amount: 适量
+  - name: 大蒜
+    amount: 2-3 瓣
+  - name: 蚝油
+    amount: 少量
+favorite: false
+last_cooked: "2026-06-08"
+source_platform: 口述
+source_url: ""
+source_note: 4-生活汇总/02-美食探店/菜谱做法/2026-06-08 鲮鱼油麦菜.md
+---
+
+## 步骤
+
+1. 油麦菜洗净，切成适口长段；大蒜切成蒜末。
+2. 炒锅烧热，喷一点油。
+3. 放入蒜末炒香。
+4. 放入鲮鱼和罐头里的豆豉，一起炒出香味。
+5. 放入油麦菜，大火爆炒。
+6. 油麦菜炒软、颜色变深后，出锅前放少量蚝油调味。
+7. 翻炒均匀后出锅。
+
+## 注意事项
+
+- 不用放盐：鲮鱼、豆豉和蚝油本身都有咸味。
+- 油麦菜下锅后大火快炒，口感更清爽。
+- 鲮鱼可以稍微拨散一点，让味道更均匀地裹到菜上。
+
+## 下次优化
+
+- 记录使用的是哪一款鲮鱼罐头，方便复现咸度。
+- 如果觉得太咸，下次减少罐头豆豉或蚝油。
