@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "new": "python3 scripts/new_recipe.py",
-    "build": "node scripts/build.js",
-    "serve": "node scripts/build.js && python3 -m http.server 4173 -d dist"
+    "build": "python3 scripts/optimize_images.py && node scripts/build.js",
+    "serve": "node scripts/build.js && python3 -m http.server 4173 -d dist",
+    "optimize-images": "python3 scripts/optimize_images.py"
   }
 }

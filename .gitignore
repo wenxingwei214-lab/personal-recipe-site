@@ -1,3 +1,5 @@
 node_modules/
 .DS_Store
 *.log
+原图备份/
+assets/images/IMG_*
