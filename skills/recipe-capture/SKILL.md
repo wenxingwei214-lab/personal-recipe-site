@@ -7,13 +7,13 @@ description: Capture, normalize, review, and approve recipes collected from Xiao
 
 ## Purpose
 
-Turn messy food content from social platforms, webpages, screenshots, transcripts, or notes into a safe, reviewed recipe pipeline:
+Turn messy food content from social platforms, webpages, screenshots, transcripts, or notes into the user's personal recipe site with the fewest user-facing steps:
 
-1. Preserve the original source in Obsidian.
-2. Extract a structured candidate recipe.
-3. Ask the user to approve or revise the candidate.
-4. Only after approval, write the recipe into the personal recipe website.
-5. Rebuild the static site and link the recipe back to the source note when possible.
+1. Collect source material.
+2. Draft one candidate recipe.
+3. Ask for approval.
+4. After approval, ingest and run `npm run build`.
+5. Report the preview path and any files changed.
 
 Never add an unapproved recipe directly to `content/recipes/`.
 
@@ -34,18 +34,19 @@ If these folders do not exist, create only the missing folders required by the c
 
 ## Workflow
 
-### 0. Obsidian AI inbox mode
+### Default user-facing flow
 
-When the user says `处理菜谱收集箱`, read `5-个人网站/个人菜谱/AI菜谱收集箱.md` and process the latest content under `## 新素材粘贴区`.
+Use this simple flow for most requests:
 
-This mode is intentionally conversational:
+1. If the user says `处理菜谱收集箱`, read `5-个人网站/个人菜谱/AI菜谱收集箱.md` under `## 新素材粘贴区`.
+2. If the user pastes text, URLs, screenshots/OCR, or notes directly, use that as the source.
+3. Create one candidate note under `4-生活汇总/02-美食探店/菜谱做法/待审批`.
+4. Show a short confirmation checklist.
+5. Ingest only after explicit approval.
+6. Run the approve script with `--build`; `npm run build` already optimizes images.
+7. Report only what the user needs: dish added, image status, preview path, and publish status if relevant.
 
-- Accept incomplete notes, casual dialogue, copied social text, URLs, or screenshot OCR.
-- Produce one candidate recipe draft and a short confirmation checklist.
-- Do not require the user to fill every field.
-- Infer reasonable defaults, but show uncertain inferences before ingestion.
-- Ask at most 3 grouped confirmation questions unless safety or ambiguity requires more.
-- Do not write to `content/recipes/` until the user confirms.
+Do not ask the user to remember `content/recipes`, `assets/images`, `dist`, `docs`, or build commands unless they are editing manually.
 
 Confirmation checklist format:
 
@@ -59,7 +60,7 @@ Confirmation checklist format:
 
 After the user confirms, create the candidate note, approve it if confirmation is explicit, run the ingestion script, rebuild the site, and report the preview path.
 
-### 1. Collect source
+### Collect source
 
 When the user provides a URL, copied text, screenshot transcription, video notes, or a social-platform recipe:
 
@@ -67,29 +68,20 @@ When the user provides a URL, copied text, screenshot transcription, video notes
 - Preserve the original URL when provided as `source_url`.
 - If the source is already an Obsidian note, keep its path as `source_note`.
 - If the source is only pasted text, create or update a collection note under `4-生活汇总/02-美食探店/菜谱做法/待审批`.
-- Do not download media unless the user asks, provides files, or approves a searched/generated image plan. Use a placeholder cover until confirmed.
+- Do not download media unless the user asks, provides files, or approves a searched/generated image plan.
 
 ### Image handling
 
-Support four image paths:
+Keep image choices simple:
 
-1. **User provides image**: copy it into `assets/images` using the recipe slug as the filename, then set `cover`.
-2. **Search image**: if the user asks to find a photo, use web/image search, show candidate source/thumbnail choices, and only save/use one after confirmation.
-3. **Generate image**: if the user wants a simple illustrative cover, generate or request a generated bitmap, save it under `assets/images`, and confirm before final use.
-4. **Placeholder**: use `/assets/images/placeholder.svg` when no image decision is made.
+- If the user provides a finished-dish photo, copy it to `assets/images` using the recipe slug, set `cover`, and run `npm run build`.
+- If the user has no photo, offer a generated temporary cover or use `/assets/images/placeholder.svg`.
+- Do not silently use searched external images as covers.
+- Treat black, blank, missing, or very slow mobile images as a failed build; run `npm run build` again and check `dist/assets/images`.
 
-Prefer user-provided real photos for personal recipes. Do not silently use external images without approval and attribution when needed.
-Default image policy for this user's personal recipes:
+`npm run build` is the only normal build command. It backs up originals, optimizes raster covers, and rebuilds the site.
 
-- Before writing or updating a website recipe, explicitly confirm the image status with the user. Ask whether they have a finished-dish photo.
-- If the user provides a finished-dish photo, use it directly: copy it into `assets/images` with the recipe slug as the filename, set `cover` to that asset path, and rebuild the site. Do not generate a replacement.
-- If the user says they do not have a finished-dish photo, default to generating a temporary illustrative cover with image2/image generation. Save it into `assets/images`, set `cover` to that generated asset path, mark it as temporary in the recipe note or source note, and rebuild the site.
-- Do not silently leave a recipe on `/assets/images/placeholder.svg` unless the user explicitly chooses to skip both uploading and generating an image.
-- Use searched external images only as visual references/candidates, not silently as the website cover.
-- When the user later provides a real finished-dish photo, replace the generated temporary cover with the real photo.
-
-
-### 2. Normalize into candidate Markdown
+### Normalize into candidate Markdown
 
 Create a candidate recipe Markdown note, not an approved recipe file. Use the exact field schema in `references/recipe-schema.md`.
 
@@ -132,9 +124,9 @@ The body should use these sections in order:
 - ...
 ```
 
-Clearly mark uncertain inferred details in `## 来源摘记`, not in the structured fields.
+Clearly mark uncertain inferred details in `## 来源摘记`, not in the structured fields. Read `references/recipe-schema.md` only when creating or validating frontmatter.
 
-### 3. Ask for approval
+### Ask for approval
 
 Show the candidate summary before writing to the website:
 
@@ -149,7 +141,7 @@ Ask the user to approve, revise, or reject. Proceed to ingestion only when the u
 
 Approval signals include direct phrases such as `通过`, `批准`, `可以入库`, `收录`, `加入菜谱`, `就这样`.
 
-### 4. Ingest approved recipe
+### Ingest approved recipe
 
 After approval, set `approved: true` in the candidate file or pass `--force` only if the user explicitly approved in the current conversation.
 
@@ -175,14 +167,17 @@ python3 skills/recipe-capture/scripts/approve_recipe.py \
 
 The script writes the recipe into `content/recipes/`, preserves source metadata, appends an approved-recipe link to the source note when provided, and optionally runs `npm run build`.
 
-### 5. Verify
+### Verify
 
 After ingestion:
 
 - Run `npm run build` from the recipe website if the script was not run with `--build`.
 - Check that the new recipe file exists in `content/recipes`.
 - Check that `dist/recipes/index.html` contains the recipe title.
-- Tell the user which files changed and where to open the preview.
+- Check that the referenced cover exists in `dist/assets/images/`.
+- For any changed raster cover, confirm the optimized file is not a large phone original.
+- If browser preview is available, check a narrow/mobile viewport for black or blank images.
+- Tell the user where to preview. Keep the final answer short.
 
 ## Extraction Rules
 

@@ -230,6 +230,12 @@ function recipeUrl(recipe, depth) {
   return `${prefixForDepth(depth)}recipes/${recipe.slug}/index.html`;
 }
 
+function imgTag(src, alt, className = "", loading = "lazy") {
+  const priority = loading === "eager" ? ' fetchpriority="high"' : "";
+  const classAttr = className ? ` class="${className}"` : "";
+  return `<img${classAttr} src="${src}" alt="${escapeHtml(alt)}" loading="${loading}" decoding="async"${priority}>`;
+}
+
 function page(title, body, active = "", depth = 0) {
   const prefix = prefixForDepth(depth);
   const nav = [
@@ -265,7 +271,7 @@ function page(title, body, active = "", depth = 0) {
 function recipeCard(recipe, depth = 0) {
   return `<article class="recipe-card" data-category="${escapeHtml(recipe.category)}" data-tags="${escapeHtml(recipe.tags.join(","))}" data-tools="${escapeHtml(recipe.tools.join(","))}" data-time="${escapeHtml(recipe.time)}">
   <a href="${recipeUrl(recipe, depth)}" aria-label="查看 ${escapeHtml(recipe.title)}">
-    <img src="${assetPath(recipe.cover, depth)}" alt="${escapeHtml(recipe.title)}">
+    ${imgTag(assetPath(recipe.cover, depth), recipe.title)}
     <div class="card-body">
       <div class="card-kicker">${escapeHtml(recipe.category)}${recipe.favorite ? " · 常做" : ""}</div>
       <h3>${escapeHtml(recipe.title)}</h3>
@@ -290,7 +296,7 @@ function renderHome(recipes) {
       <a class="button" href="week/index.html">安排本周菜单</a>
     </div>
   </div>
-  <img src="assets/images/cover-kitchen.svg" alt="温暖厨房里的菜谱和食材">
+  ${imgTag("assets/images/cover-kitchen.svg", "温暖厨房里的菜谱和食材", "", "eager")}
 </section>
 <section class="section">
   <div class="section-head">
@@ -362,7 +368,7 @@ function renderRecipeDetails(recipes) {
       </div>
       <div class="chips">${recipe.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
     </div>
-    <img src="${assetPath(recipe.cover, 2)}" alt="${escapeHtml(recipe.title)}">
+    ${imgTag(assetPath(recipe.cover, 2), recipe.title, "", "eager")}
   </header>
   <div class="detail-layout">
     <aside class="detail-panel">

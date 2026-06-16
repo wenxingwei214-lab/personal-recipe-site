@@ -29,6 +29,13 @@
 npm run build
 ```
 
+普通构建不会改写源图片。只有需要主动压缩新图片时才运行：
+
+```bash
+npm run optimize-images
+npm run build
+```
+
 也可以用本地服务器预览：
 
 ```bash
