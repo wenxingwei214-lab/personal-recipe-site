@@ -6,6 +6,7 @@ const timeButtons = [...document.querySelectorAll("[data-filter-time]")];
 
 const state = {
   tag: "",
+  values: [],
   time: 0,
   search: ""
 };
@@ -27,9 +28,12 @@ function applyFilters() {
 
   for (const card of cards) {
     const tags = card.dataset.tags.split(",").filter(Boolean);
+    const filterValues = state.values.length ? state.values : [state.tag].filter(Boolean);
     const text = [card.dataset.title, card.dataset.category, card.dataset.tags, card.dataset.tools].join(" ");
     const time = Number(card.dataset.time || 0);
-    const passTag = !state.tag || card.dataset.category === state.tag || tags.includes(state.tag);
+    const passTag =
+      !filterValues.length ||
+      filterValues.some((value) => card.dataset.category === value || tags.includes(value));
     const passTime = !state.time || time <= state.time;
     const passSearch = !term || includesText(text, term);
     const pass = passTag && passTime && passSearch;
@@ -44,6 +48,7 @@ function applyFilters() {
 for (const button of tagButtons) {
   button.addEventListener("click", () => {
     state.tag = button.dataset.filterTag || "";
+    state.values = (button.dataset.filterValues || "").split(",").filter(Boolean);
     setActive(tagButtons, "filterTag", state.tag);
     applyFilters();
   });
@@ -64,6 +69,7 @@ searchInput?.addEventListener("input", () => {
 
 document.querySelector("#clear-filters")?.addEventListener("click", () => {
   state.tag = "";
+  state.values = [];
   state.time = 0;
   state.search = "";
   if (searchInput) searchInput.value = "";
@@ -81,5 +87,7 @@ if (params.has("search")) {
 }
 
 setActive(tagButtons, "filterTag", state.tag);
+const activeTagButton = tagButtons.find((button) => button.dataset.filterTag === state.tag);
+state.values = (activeTagButton?.dataset.filterValues || state.tag).split(",").filter(Boolean);
 setActive(timeButtons, "filterTime", "");
 applyFilters();

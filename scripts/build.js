@@ -13,7 +13,16 @@ const site = {
   description: "把喜欢吃、愿意复做的菜慢慢攒起来。忙一点也没关系，先把今天这一顿照顾好。"
 };
 
-const quickFilters = ["全部", "主食", "减脂", "汤羹", "快手菜", "下饭菜", "高蛋白", "家常菜"];
+const quickFilters = [
+  { label: "全部", values: [] },
+  { label: "主食类", values: ["主食类", "主食", "面食"] },
+  { label: "减脂餐", values: ["减脂餐", "减脂"] },
+  { label: "汤羹", values: ["汤羹", "汤"] },
+  { label: "快手菜", values: ["快手菜", "家常快手"] },
+  { label: "下饭菜", values: ["下饭菜"] },
+  { label: "高蛋白", values: ["高蛋白"] },
+  { label: "家常菜", values: ["家常菜", "家常快手"] }
+];
 
 function resetOutput() {
   fs.rmSync(outputDir, { recursive: true, force: true });
@@ -320,7 +329,7 @@ function renderHome(recipes) {
     <h2>按场景找菜</h2>
     <a href="recipes/index.html">全部 ${recipes.length} 道</a>
   </div>
-  <div class="quick-filter-row">${quickFilters.map((filter) => filter === "全部" ? `<a class="filter-pill active" href="recipes/index.html">${filter}</a>` : `<a class="filter-pill" href="recipes/index.html?tag=${encodeURIComponent(filter)}">${escapeHtml(filter)}</a>`).join("")}</div>
+  <div class="quick-filter-row">${quickFilters.map((filter) => filter.label === "全部" ? `<a class="filter-pill active" href="recipes/index.html">${filter.label}</a>` : `<a class="filter-pill" href="recipes/index.html?tag=${encodeURIComponent(filter.label)}">${escapeHtml(filter.label)}</a>`).join("")}</div>
 </section>
 <section class="section compact-section">
   <div class="section-head"><h2>最近入库</h2><a href="recipes/index.html">继续翻</a></div>
@@ -341,7 +350,7 @@ function renderRecipeList(recipes) {
     <button class="button" id="clear-filters" type="button">重置</button>
   </div>
   <div class="quick-filter-row" role="list" aria-label="快速分类">
-    ${quickFilters.map((filter) => `<button class="filter-pill${filter === "全部" ? " active" : ""}" type="button" data-filter-tag="${escapeHtml(filter === "全部" ? "" : filter)}">${escapeHtml(filter)}</button>`).join("")}
+    ${quickFilters.map((filter) => `<button class="filter-pill${filter.label === "全部" ? " active" : ""}" type="button" data-filter-tag="${escapeHtml(filter.label === "全部" ? "" : filter.label)}" data-filter-values="${escapeHtml(filter.values.join(","))}">${escapeHtml(filter.label)}</button>`).join("")}
   </div>
   <div class="quick-filter-row secondary-filters" role="list" aria-label="耗时筛选">
     <button class="filter-pill active" type="button" data-filter-time="">全部时长</button>
