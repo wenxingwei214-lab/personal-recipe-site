@@ -10,8 +10,10 @@ const outputDir = path.join(root, "docs");
 
 const site = {
   title: "我的小厨房",
-  description: "把 Obsidian 里的家常菜、常做菜和下次想优化的小细节，整理成一个轻量、好看的个人菜谱网页。"
+  description: "把真正会做、会复做的家常菜收在一起。打开就能按场景、食材和时间找到今天这一顿。"
 };
+
+const quickFilters = ["全部", "主食", "减脂", "汤羹", "快手菜", "下饭菜", "高蛋白", "家常菜"];
 
 function resetOutput() {
   fs.rmSync(outputDir, { recursive: true, force: true });
@@ -249,9 +251,9 @@ function page(title, body, active = "", depth = 0) {
   const prefix = prefixForDepth(depth);
   const nav = [
     ["首页", `${prefix}index.html`],
-    ["全部菜谱", `${prefix}recipes/index.html`],
-    ["本周菜单", `${prefix}week/index.html`],
-    ["食材索引", `${prefix}ingredients/index.html`]
+    ["菜谱", `${prefix}recipes/index.html`],
+    ["本周", `${prefix}week/index.html`],
+    ["食材", `${prefix}ingredients/index.html`]
   ]
     .map(([label, href]) => `<a class="${active === label ? "active" : ""}" href="${href}">${label}</a>`)
     .join("");
@@ -277,12 +279,12 @@ function page(title, body, active = "", depth = 0) {
 </html>`;
 }
 
-function recipeCard(recipe, depth = 0) {
-  return `<article class="recipe-card" data-category="${escapeHtml(recipe.category)}" data-tags="${escapeHtml(recipe.tags.join(","))}" data-tools="${escapeHtml(recipe.tools.join(","))}" data-time="${escapeHtml(recipe.time)}">
+function recipeCard(recipe, depth = 0, loading = "eager") {
+  return `<article class="recipe-card" data-category="${escapeHtml(recipe.category)}" data-tags="${escapeHtml(recipe.tags.join(","))}" data-tools="${escapeHtml(recipe.tools.join(","))}" data-time="${escapeHtml(recipe.time)}" data-title="${escapeHtml(recipe.title)}">
   <a href="${recipeUrl(recipe, depth)}" aria-label="查看 ${escapeHtml(recipe.title)}">
-    ${imgTag(assetPath(recipe.cover, depth), recipe.title)}
+    ${imgTag(assetPath(recipe.cover, depth), recipe.title, "", loading)}
     <div class="card-body">
-      <div class="card-kicker">${escapeHtml(recipe.category)}${recipe.favorite ? " · 常做" : ""}</div>
+      <div class="card-kicker">${escapeHtml(recipe.category)}</div>
       <h3>${escapeHtml(recipe.title)}</h3>
       <p>${escapeHtml(recipe.time)} 分钟 · ${escapeHtml(recipe.difficulty)} · ${escapeHtml(recipe.servings)} 人份</p>
       <div class="chips">${recipe.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
@@ -292,74 +294,65 @@ function recipeCard(recipe, depth = 0) {
 }
 
 function renderHome(recipes) {
-  const categories = [...new Set(recipes.map((recipe) => recipe.category))];
-  const favorites = recipes.filter((recipe) => recipe.favorite).slice(0, 4);
-  const recent = recipes.slice(0, 4);
-  const body = `<section class="hero">
-  <div class="hero-copy">
-    <p class="eyebrow">Obsidian 驱动的个人菜谱</p>
-    <h1>${site.title}</h1>
+  const heroRecipe = recipes.find((recipe) => recipe.slug === "lotus-root-pork-rib-soup") || recipes[0];
+  const recent = recipes.filter((recipe) => recipe.slug !== heroRecipe.slug).slice(0, 4);
+  const body = `<section class="home-shell">
+  <div class="home-intro">
+    <p class="eyebrow">PRIVATE RECIPE BOOK</p>
+    <h1>今天吃什么，一眼决定。</h1>
     <p>${site.description}</p>
-    <div class="hero-actions">
-      <a class="button primary" href="recipes/index.html">查看全部菜谱</a>
-      <a class="button" href="week/index.html">安排本周菜单</a>
-    </div>
+    <form class="search-card" action="recipes/index.html">
+      <input name="search" type="search" placeholder="搜菜名、食材、标签" aria-label="搜索菜谱">
+      <button class="button primary" type="submit">搜索</button>
+    </form>
   </div>
-  ${imgTag("assets/images/cover-kitchen.svg", "温暖厨房里的菜谱和食材", "", "eager")}
+  <a class="featured-recipe" href="${recipeUrl(heroRecipe, 0)}" aria-label="查看 ${escapeHtml(heroRecipe.title)}">
+    ${imgTag(assetPath(heroRecipe.cover, 0), heroRecipe.title, "", "eager")}
+    <div class="featured-copy">
+      <span>${escapeHtml(heroRecipe.category)} · ${escapeHtml(heroRecipe.time)} 分钟</span>
+      <h2>${escapeHtml(heroRecipe.title)}</h2>
+      <p>${heroRecipe.tags.slice(0, 3).map((tag) => escapeHtml(tag)).join(" / ")}</p>
+    </div>
+  </a>
 </section>
-<section class="section">
+<section class="section compact-section">
   <div class="section-head">
-    <h2>分类入口</h2>
+    <h2>按场景找菜</h2>
     <a href="recipes/index.html">全部 ${recipes.length} 道</a>
   </div>
-  <div class="category-grid">${categories.map((category) => `<a href="recipes/index.html?category=${encodeURIComponent(category)}">${escapeHtml(category)}</a>`).join("")}</div>
+  <div class="quick-filter-row">${quickFilters.map((filter) => filter === "全部" ? `<a class="filter-pill active" href="recipes/index.html">${filter}</a>` : `<a class="filter-pill" href="recipes/index.html?tag=${encodeURIComponent(filter)}">${escapeHtml(filter)}</a>`).join("")}</div>
 </section>
-<section class="section">
-  <div class="section-head"><h2>常做菜</h2></div>
-  <div class="card-grid">${favorites.map((recipe) => recipeCard(recipe, 0)).join("")}</div>
-</section>
-<section class="section">
-  <div class="section-head"><h2>最近更新</h2></div>
-  <div class="card-grid">${recent.map((recipe) => recipeCard(recipe, 0)).join("")}</div>
+<section class="section compact-section">
+  <div class="section-head"><h2>最近入库</h2><a href="recipes/index.html">继续翻</a></div>
+  <div class="card-grid feature-grid">${recent.map((recipe) => recipeCard(recipe, 0)).join("")}</div>
 </section>`;
   writePage("index.html", page("首页", body, "首页", 0));
 }
 
 function renderRecipeList(recipes) {
-  const categories = [...new Set(recipes.map((recipe) => recipe.category))];
-  const tags = [...new Set(recipes.flatMap((recipe) => recipe.tags))];
-  const tools = [...new Set(recipes.flatMap((recipe) => recipe.tools))];
   const body = `<section class="page-title">
-  <p class="eyebrow">Recipe Library</p>
+  <p class="eyebrow">RECIPE LIBRARY</p>
   <h1>全部菜谱</h1>
-  <p>按分类、标签、工具和耗时筛一筛，找到今天最顺手的一道。</p>
+  <p>按场景快速筛一遍，不用在手机上填一堆表单。</p>
 </section>
 <section class="filters" aria-label="菜谱筛选">
-  ${select("category", "分类", categories)}
-  ${select("tag", "标签", tags)}
-  ${select("tool", "工具", tools)}
-  <label>时长
-    <select id="filter-time">
-      <option value="">全部</option>
-      <option value="15">15 分钟内</option>
-      <option value="30">30 分钟内</option>
-      <option value="60">60 分钟内</option>
-    </select>
-  </label>
-  <button class="button" id="clear-filters" type="button">清空筛选</button>
+  <div class="search-card list-search">
+    <input id="recipe-search" type="search" placeholder="搜菜名、食材、标签" aria-label="搜索菜谱">
+    <button class="button" id="clear-filters" type="button">重置</button>
+  </div>
+  <div class="quick-filter-row" role="list" aria-label="快速分类">
+    ${quickFilters.map((filter) => `<button class="filter-pill${filter === "全部" ? " active" : ""}" type="button" data-filter-tag="${escapeHtml(filter === "全部" ? "" : filter)}">${escapeHtml(filter)}</button>`).join("")}
+  </div>
+  <div class="quick-filter-row secondary-filters" role="list" aria-label="耗时筛选">
+    <button class="filter-pill active" type="button" data-filter-time="">全部时长</button>
+    <button class="filter-pill" type="button" data-filter-time="15">15 分钟</button>
+    <button class="filter-pill" type="button" data-filter-time="30">30 分钟</button>
+    <button class="filter-pill" type="button" data-filter-time="60">1 小时内</button>
+  </div>
 </section>
 <p class="result-count"><span id="recipe-count">${recipes.length}</span> 道菜谱</p>
 <section class="card-grid recipe-list">${recipes.map((recipe) => recipeCard(recipe, 1)).join("")}</section>`;
-  writePage("recipes/index.html", page("全部菜谱", body, "全部菜谱", 1));
-}
-
-function select(id, label, values) {
-  return `<label>${label}
-    <select id="filter-${id}">
-      <option value="">全部</option>
-      ${values.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("")}
-    </select>
-  </label>`;
+  writePage("recipes/index.html", page("全部菜谱", body, "菜谱", 1));
 }
 
 function renderRecipeDetails(recipes) {
@@ -373,7 +366,7 @@ function renderRecipeDetails(recipes) {
         <span>${escapeHtml(recipe.time)} 分钟</span>
         <span>${escapeHtml(recipe.difficulty)}</span>
         <span>${escapeHtml(recipe.servings)} 人份</span>
-        <span>${escapeHtml(recipe.calories)} kcal</span>
+        <span>${recipe.calories ? `${escapeHtml(recipe.calories)} kcal` : "家常"}</span>
       </div>
       <div class="chips">${recipe.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
     </div>
@@ -390,15 +383,15 @@ function renderRecipeDetails(recipes) {
     <section class="prose">${recipe.bodyHtml}</section>
   </div>
 </article>`;
-    writePage(`recipes/${recipe.slug}/index.html`, page(recipe.title, body, "全部菜谱", 2));
+    writePage(`recipes/${recipe.slug}/index.html`, page(recipe.title, body, "菜谱", 2));
   }
 }
 
 function renderWeek() {
   const source = fs.readFileSync(path.join(contentDir, "week-menu.md"), "utf8");
   const { body } = parseFrontmatter(source);
-  const bodyHtml = `<section class="page-title"><p class="eyebrow">Weekly Plan</p><h1>本周菜单</h1><p>这个页面先保持手动维护，适合记录一周吃什么、缺什么食材。</p></section><section class="prose wide">${markdownToHtml(body)}</section>`;
-  writePage("week/index.html", page("本周菜单", bodyHtml, "本周菜单", 1));
+  const bodyHtml = `<section class="page-title"><p class="eyebrow">WEEKLY PLAN</p><h1>本周菜单</h1><p>这个页面先保持手动维护，适合记录一周吃什么、缺什么食材。</p></section><section class="prose wide">${markdownToHtml(body)}</section>`;
+  writePage("week/index.html", page("本周菜单", bodyHtml, "本周", 1));
 }
 
 function renderIngredients(recipes) {
@@ -414,13 +407,13 @@ function renderIngredients(recipes) {
   const body = `<section class="page-title">
   <p class="eyebrow">Ingredient Index</p>
   <h1>食材索引</h1>
-  <p>先按示例菜谱自动聚合，后续新增菜谱后会一起更新。</p>
+  <p>按食材倒查菜谱，适合先看冰箱里有什么。</p>
 </section>
 <section class="ingredient-list">${[...map.entries()]
     .sort((a, b) => a[0].localeCompare(b[0], "zh-CN"))
     .map(([name, list]) => `<article><h2>${escapeHtml(name)}</h2><p>${list.map((recipe) => `<a href="${recipeUrl(recipe, 1)}">${escapeHtml(recipe.title)}</a>`).join(" / ")}</p></article>`)
     .join("")}</section>`;
-  writePage("ingredients/index.html", page("食材索引", body, "食材索引", 1));
+  writePage("ingredients/index.html", page("食材索引", body, "食材", 1));
 }
 
 function writePage(file, html) {

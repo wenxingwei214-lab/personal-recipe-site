@@ -4,53 +4,46 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>首页 · 我的小厨房</title>
-  <meta name="description" content="把 Obsidian 里的家常菜、常做菜和下次想优化的小细节，整理成一个轻量、好看的个人菜谱网页。">
+  <meta name="description" content="把真正会做、会复做的家常菜收在一起。打开就能按场景、食材和时间找到今天这一顿。">
   <link rel="stylesheet" href="src/styles.css">
   <script src="src/app.js" defer></script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="index.html">我的小厨房</a>
-    <nav><a class="active" href="index.html">首页</a><a class="" href="recipes/index.html">全部菜谱</a><a class="" href="week/index.html">本周菜单</a><a class="" href="ingredients/index.html">食材索引</a></nav>
+    <nav><a class="active" href="index.html">首页</a><a class="" href="recipes/index.html">菜谱</a><a class="" href="week/index.html">本周</a><a class="" href="ingredients/index.html">食材</a></nav>
   </header>
-  <main><section class="hero">
-  <div class="hero-copy">
-    <p class="eyebrow">Obsidian 驱动的个人菜谱</p>
-    <h1>我的小厨房</h1>
-    <p>把 Obsidian 里的家常菜、常做菜和下次想优化的小细节，整理成一个轻量、好看的个人菜谱网页。</p>
-    <div class="hero-actions">
-      <a class="button primary" href="recipes/index.html">查看全部菜谱</a>
-      <a class="button" href="week/index.html">安排本周菜单</a>
-    </div>
+  <main><section class="home-shell">
+  <div class="home-intro">
+    <p class="eyebrow">PRIVATE RECIPE BOOK</p>
+    <h1>今天吃什么，一眼决定。</h1>
+    <p>把真正会做、会复做的家常菜收在一起。打开就能按场景、食材和时间找到今天这一顿。</p>
+    <form class="search-card" action="recipes/index.html">
+      <input name="search" type="search" placeholder="搜菜名、食材、标签" aria-label="搜索菜谱">
+      <button class="button primary" type="submit">搜索</button>
+    </form>
   </div>
-  <img src="assets/images/cover-kitchen.svg" alt="温暖厨房里的菜谱和食材" loading="eager" decoding="async" fetchpriority="high">
-</section>
-<section class="section">
-  <div class="section-head">
-    <h2>分类入口</h2>
-    <a href="recipes/index.html">全部 7 道</a>
-  </div>
-  <div class="category-grid"><a href="recipes/index.html?category=%E6%B1%A4%E7%BE%B9">汤羹</a><a href="recipes/index.html?category=%E5%AE%B6%E5%B8%B8%E5%BF%AB%E6%89%8B">家常快手</a><a href="recipes/index.html?category=%E5%87%8F%E8%84%82%E9%A4%90">减脂餐</a></div>
-</section>
-<section class="section">
-  <div class="section-head"><h2>常做菜</h2></div>
-  <div class="card-grid"></div>
-</section>
-<section class="section">
-  <div class="section-head"><h2>最近更新</h2></div>
-  <div class="card-grid"><article class="recipe-card" data-category="汤羹" data-tags="汤羹,排骨,莲藕,玉米,电饭煲,家常菜" data-tools="炒锅,电饭煲" data-time="90">
-  <a href="recipes/lotus-root-pork-rib-soup/index.html" aria-label="查看 莲藕排骨汤">
-    <img src="assets/images/lotus-root-pork-rib-soup.jpg?v=6756-mrrpml5l" alt="莲藕排骨汤" loading="lazy" decoding="async">
-    <div class="card-body">
-      <div class="card-kicker">汤羹</div>
-      <h3>莲藕排骨汤</h3>
-      <p>90 分钟 · 简单 · 3 人份</p>
-      <div class="chips"><span>汤羹</span><span>排骨</span><span>莲藕</span><span>玉米</span><span>电饭煲</span><span>家常菜</span></div>
+  <a class="featured-recipe" href="recipes/lotus-root-pork-rib-soup/index.html" aria-label="查看 莲藕排骨汤">
+    <img src="assets/images/lotus-root-pork-rib-soup.jpg?v=6756-mrrpml5l" alt="莲藕排骨汤" loading="eager" decoding="async" fetchpriority="high">
+    <div class="featured-copy">
+      <span>汤羹 · 90 分钟</span>
+      <h2>莲藕排骨汤</h2>
+      <p>汤羹 / 排骨 / 莲藕</p>
     </div>
   </a>
-</article><article class="recipe-card" data-category="家常快手" data-tags="快手菜,家常菜,鲈鱼,清蒸,高蛋白" data-tools="蒸锅" data-time="20">
+</section>
+<section class="section compact-section">
+  <div class="section-head">
+    <h2>按场景找菜</h2>
+    <a href="recipes/index.html">全部 7 道</a>
+  </div>
+  <div class="quick-filter-row"><a class="filter-pill active" href="recipes/index.html">全部</a><a class="filter-pill" href="recipes/index.html?tag=%E4%B8%BB%E9%A3%9F">主食</a><a class="filter-pill" href="recipes/index.html?tag=%E5%87%8F%E8%84%82">减脂</a><a class="filter-pill" href="recipes/index.html?tag=%E6%B1%A4%E7%BE%B9">汤羹</a><a class="filter-pill" href="recipes/index.html?tag=%E5%BF%AB%E6%89%8B%E8%8F%9C">快手菜</a><a class="filter-pill" href="recipes/index.html?tag=%E4%B8%8B%E9%A5%AD%E8%8F%9C">下饭菜</a><a class="filter-pill" href="recipes/index.html?tag=%E9%AB%98%E8%9B%8B%E7%99%BD">高蛋白</a><a class="filter-pill" href="recipes/index.html?tag=%E5%AE%B6%E5%B8%B8%E8%8F%9C">家常菜</a></div>
+</section>
+<section class="section compact-section">
+  <div class="section-head"><h2>最近入库</h2><a href="recipes/index.html">继续翻</a></div>
+  <div class="card-grid feature-grid"><article class="recipe-card" data-category="家常快手" data-tags="快手菜,家常菜,鲈鱼,清蒸,高蛋白" data-tools="蒸锅" data-time="20" data-title="清蒸鲈鱼">
   <a href="recipes/steamed-sea-bass/index.html" aria-label="查看 清蒸鲈鱼">
-    <img src="assets/images/steamed-sea-bass.jpg?v=4hvj-mrrkoqf6" alt="清蒸鲈鱼" loading="lazy" decoding="async">
+    <img src="assets/images/steamed-sea-bass.jpg?v=4hvj-mrrkoqf6" alt="清蒸鲈鱼" loading="eager" decoding="async" fetchpriority="high">
     <div class="card-body">
       <div class="card-kicker">家常快手</div>
       <h3>清蒸鲈鱼</h3>
@@ -58,9 +51,9 @@
       <div class="chips"><span>快手菜</span><span>家常菜</span><span>鲈鱼</span><span>清蒸</span><span>高蛋白</span></div>
     </div>
   </a>
-</article><article class="recipe-card" data-category="汤羹" data-tags="汤羹,牛肋条,清炖,高蛋白,家常菜" data-tools="炖锅,汤锅" data-time="120">
+</article><article class="recipe-card" data-category="汤羹" data-tags="汤羹,牛肋条,清炖,高蛋白,家常菜" data-tools="炖锅,汤锅" data-time="120" data-title="清炖牛肋条">
   <a href="recipes/clear-stewed-beef-rib-fingers/index.html" aria-label="查看 清炖牛肋条">
-    <img src="assets/images/clear-stewed-beef-rib-fingers.jpg?v=22do-mrnn2752" alt="清炖牛肋条" loading="lazy" decoding="async">
+    <img src="assets/images/clear-stewed-beef-rib-fingers.jpg?v=22do-mrnn2752" alt="清炖牛肋条" loading="eager" decoding="async" fetchpriority="high">
     <div class="card-body">
       <div class="card-kicker">汤羹</div>
       <h3>清炖牛肋条</h3>
@@ -68,14 +61,24 @@
       <div class="chips"><span>汤羹</span><span>牛肋条</span><span>清炖</span><span>高蛋白</span><span>家常菜</span></div>
     </div>
   </a>
-</article><article class="recipe-card" data-category="家常快手" data-tags="快手菜,下饭菜,鲮鱼罐头,油麦菜,家常菜" data-tools="炒锅" data-time="10">
+</article><article class="recipe-card" data-category="家常快手" data-tags="快手菜,下饭菜,鲮鱼罐头,油麦菜,家常菜" data-tools="炒锅" data-time="10" data-title="鲮鱼油麦菜">
   <a href="recipes/dace-romaine-lettuce/index.html" aria-label="查看 鲮鱼油麦菜">
-    <img src="assets/images/dace-romaine-lettuce.jpg?v=8wnz-mrrk55yi" alt="鲮鱼油麦菜" loading="lazy" decoding="async">
+    <img src="assets/images/dace-romaine-lettuce.jpg?v=8wnz-mrrk55yi" alt="鲮鱼油麦菜" loading="eager" decoding="async" fetchpriority="high">
     <div class="card-body">
       <div class="card-kicker">家常快手</div>
       <h3>鲮鱼油麦菜</h3>
       <p>10 分钟 · 简单 · 2 人份</p>
       <div class="chips"><span>快手菜</span><span>下饭菜</span><span>鲮鱼罐头</span><span>油麦菜</span><span>家常菜</span></div>
+    </div>
+  </a>
+</article><article class="recipe-card" data-category="家常快手" data-tags="快手菜,下饭菜,腊肠,芸豆,家常菜" data-tools="炒锅" data-time="15" data-title="芸豆炒腊肠">
+  <a href="recipes/lap-cheong-green-beans/index.html" aria-label="查看 芸豆炒腊肠">
+    <img src="assets/images/lap-cheong-green-beans.jpg?v=69a1-mqgplgsk" alt="芸豆炒腊肠" loading="eager" decoding="async" fetchpriority="high">
+    <div class="card-body">
+      <div class="card-kicker">家常快手</div>
+      <h3>芸豆炒腊肠</h3>
+      <p>15 分钟 · 简单 · 2 人份</p>
+      <div class="chips"><span>快手菜</span><span>下饭菜</span><span>腊肠</span><span>芸豆</span><span>家常菜</span></div>
     </div>
   </a>
 </article></div>
