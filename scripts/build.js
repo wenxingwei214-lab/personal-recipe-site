@@ -225,7 +225,14 @@ function prefixForDepth(depth) {
 
 function assetPath(value, depth) {
   const prefix = prefixForDepth(depth);
-  return `${prefix}${String(value || "/assets/images/placeholder.svg").replace(/^\//, "")}`;
+  const cleanPath = String(value || "/assets/images/placeholder.svg").replace(/^\//, "");
+  const fullPath = path.join(root, cleanPath);
+  let version = "";
+  if (fs.existsSync(fullPath)) {
+    const stat = fs.statSync(fullPath);
+    version = `?v=${stat.size.toString(36)}-${Math.floor(stat.mtimeMs).toString(36)}`;
+  }
+  return `${prefix}${cleanPath}${version}`;
 }
 
 function recipeUrl(recipe, depth) {
