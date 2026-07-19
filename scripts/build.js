@@ -10,7 +10,7 @@ const outputDir = path.join(root, "docs");
 
 const site = {
   title: "我的小厨房",
-  description: "把真正会做、会复做的家常菜收在一起。打开就能按场景、食材和时间找到今天这一顿。"
+  description: "把喜欢吃、愿意复做的菜慢慢攒起来。忙一点也没关系，先把今天这一顿照顾好。"
 };
 
 const quickFilters = ["全部", "主食", "减脂", "汤羹", "快手菜", "下饭菜", "高蛋白", "家常菜"];
@@ -298,11 +298,11 @@ function renderHome(recipes) {
   const recent = recipes.filter((recipe) => recipe.slug !== heroRecipe.slug).slice(0, 4);
   const body = `<section class="home-shell">
   <div class="home-intro">
-    <p class="eyebrow">PRIVATE RECIPE BOOK</p>
-    <h1>今天吃什么，一眼决定。</h1>
+    <p class="eyebrow">好好吃饭，慢慢变好</p>
+    <h1>认真吃饭，也是在认真生活。</h1>
     <p>${site.description}</p>
     <form class="search-card" action="recipes/index.html">
-      <input name="search" type="search" placeholder="搜菜名、食材、标签" aria-label="搜索菜谱">
+      <input name="search" type="search" placeholder="想吃什么？搜菜名、食材、标签" aria-label="搜索菜谱">
       <button class="button primary" type="submit">搜索</button>
     </form>
   </div>
