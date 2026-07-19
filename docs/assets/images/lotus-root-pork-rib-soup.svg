@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 680" role="img" aria-label="莲藕排骨汤封面">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbf4e4"/>
+      <stop offset="1" stop-color="#d9ead7"/>
+    </linearGradient>
+    <radialGradient id="soup" cx="50%" cy="42%" r="60%">
+      <stop offset="0" stop-color="#fff5cf"/>
+      <stop offset="0.7" stop-color="#d9a35f"/>
+      <stop offset="1" stop-color="#8d5c33"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="680" fill="url(#bg)"/>
+  <ellipse cx="450" cy="380" rx="330" ry="208" fill="#f8fbf3"/>
+  <ellipse cx="450" cy="366" rx="288" ry="166" fill="#4f7560"/>
+  <ellipse cx="450" cy="352" rx="258" ry="142" fill="url(#soup)"/>
+  <g fill="#f4efe0" stroke="#b78962" stroke-width="8">
+    <ellipse cx="352" cy="314" rx="74" ry="48" transform="rotate(-18 352 314)"/>
+    <ellipse cx="529" cy="332" rx="80" ry="48" transform="rotate(16 529 332)"/>
+    <ellipse cx="445" cy="412" rx="86" ry="50" transform="rotate(-8 445 412)"/>
+  </g>
+  <g fill="#d9a066">
+    <path d="M286 384c18-32 65-36 92-14 20 16 18 48-4 64-32 22-91 10-100-19-3-11 2-21 12-31z"/>
+    <path d="M554 390c24-24 69-15 88 10 15 20 6 49-18 60-35 16-85-7-88-38-1-12 6-22 18-32z"/>
+    <path d="M408 270c28-22 80-14 96 16 11 21-4 48-32 55-38 10-84-19-80-48 1-9 6-16 16-23z"/>
+  </g>
+  <g fill="#f0c45f">
+    <circle cx="314" cy="262" r="28"/>
+    <circle cx="596" cy="292" r="30"/>
+    <circle cx="624" cy="386" r="24"/>
+  </g>
+  <g fill="none" stroke="#6b8b63" stroke-width="18" stroke-linecap="round">
+    <path d="M286 452c60 34 168 48 282 6"/>
+    <path d="M342 224c82-34 194-28 252 24"/>
+  </g>
+</svg>

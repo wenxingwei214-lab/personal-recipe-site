@@ -6,6 +6,8 @@ ROOT = Path(__file__).resolve().parents[1]
 IMG_DIR = ROOT / "assets" / "images"
 MAX_SIZE = 1400
 JPEG_QUALITY = "72"
+MIN_SAFE_OUTPUT_SIZE = 80_000
+MIN_SAFE_RATIO = 0.12
 
 EXTS = {".jpg", ".jpeg", ".png"}
 
@@ -43,7 +45,19 @@ def main():
             cmd = ["sips", "-Z", str(MAX_SIZE), str(path), "--out", str(tmp)]
         else:
             cmd = ["sips", "-s", "format", "jpeg", "-s", "formatOptions", JPEG_QUALITY, "-Z", str(MAX_SIZE), str(path), "--out", str(tmp)]
+        original_size = path.stat().st_size
         subprocess.check_call(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        optimized_size = tmp.stat().st_size
+        suspiciously_tiny = (
+            path.suffix.lower() != ".png"
+            and original_size > 450_000
+            and optimized_size < MIN_SAFE_OUTPUT_SIZE
+            and optimized_size < original_size * MIN_SAFE_RATIO
+        )
+        if suspiciously_tiny:
+            tmp.unlink(missing_ok=True)
+            print(f"skipped {path.name}: optimized result looked corrupt ({optimized_size//1024}KB)")
+            continue
         tmp.replace(path)
         changed += 1
         new_dim = dimensions(path)
