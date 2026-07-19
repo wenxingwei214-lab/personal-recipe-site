@@ -8,7 +8,7 @@ tags:
   - 玉米
   - 电饭煲
   - 家常菜
-cover: /assets/images/lotus-root-pork-rib-soup.svg
+cover: /assets/images/lotus-root-pork-rib-soup.jpg
 time: 90
 difficulty: 简单
 servings: 3
@@ -37,7 +37,7 @@ favorite: false
 last_cooked: "2026-06-16"
 source_platform: 口述+本地封面
 source_url: ""
-source_note: 4-生活汇总/02-美食探店/菜谱做法/2026-06-16 莲藕排骨汤.md；原封面损坏，临时改为本地插画封面
+source_note: 用户提供真实成品图，已替换网站封面
 ---
 
 ## 步骤
