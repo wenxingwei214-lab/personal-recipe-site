@@ -49,16 +49,12 @@ fi
 echo "==> 6. 推送 main 分支"
 git push -u origin main
 
-echo "==> 7. 开启/更新 GitHub Pages：main / docs"
-TMP_JSON="$(mktemp)"
-printf '{"source":{"branch":"main","path":"/docs"}}' > "$TMP_JSON"
-if gh api -X POST "repos/$REPO/pages" --input "$TMP_JSON" >/dev/null 2>&1; then
-  echo "GitHub Pages 已开启。"
+echo "==> 7. 检查 GitHub Pages 公网地址"
+if curl -L -s --head "$URL" | grep -q "200"; then
+  echo "GitHub Pages 已可访问。"
 else
-  gh api -X PATCH "repos/$REPO/pages" --input "$TMP_JSON" >/dev/null
-  echo "GitHub Pages 配置已更新。"
+  echo "已经推送到 GitHub。GitHub Pages 可能还在刷新，请等 1-3 分钟。"
 fi
-rm -f "$TMP_JSON"
 
 echo ""
 echo "发布完成。公网网址："
