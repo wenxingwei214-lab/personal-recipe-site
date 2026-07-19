@@ -4,6 +4,9 @@
 **Implementation Evidence**
 - Mobile home screenshot: `/private/tmp/recipe-home-mobile-final.png`
 - Mobile recipe list screenshot: `/private/tmp/recipe-list-mobile-final.png`
+- Density revision mobile home screenshot: `/private/tmp/recipe-density-home-mobile-final2.png`
+- Density revision mobile recipe list screenshot: `/private/tmp/recipe-density-list-mobile-final2.png`
+- Density revision desktop home screenshot: `/private/tmp/recipe-density-home-desktop-final2.png`
 - Desktop home screenshot: `/private/tmp/recipe-home-desktop.png`
 - Desktop recipe list screenshot: `/private/tmp/recipe-list-desktop.png`
 - Viewport: mobile 390 x 844, desktop 1280 x 900
@@ -36,12 +39,16 @@
 - Earlier finding: lower full-page captures could show blank lazy images before scroll.
   Fix made: changed recipe card image loading to eager for this small seven-recipe site.
   Post-fix evidence: browser verification reported all seven images complete with nonzero natural dimensions.
+- Later finding: mobile cards and desktop hero were too large for browsing density.
+  Fix made: reduced desktop hero height, narrowed the featured image block, changed mobile recipe cards to two-column vertical cards, shortened mobile feature image, and capped tag rows.
+  Post-fix evidence: `/private/tmp/recipe-density-home-mobile-final2.png`, `/private/tmp/recipe-density-list-mobile-final2.png`, and `/private/tmp/recipe-density-home-desktop-final2.png`; mobile recipe grid reported `180px 180px`, no horizontal overflow, and first card height about `275px`.
 
 **Implementation Checklist**
 - Build passed with `npm run build`.
 - Mobile 390 x 844 checked with no horizontal overflow.
 - Recipe tag filter checked: selecting `汤羹` returns `2` recipes and active state is visible.
 - Seven recipe images checked as loaded and complete.
+- Density revision checked: mobile recipe cards render two per row; desktop hero ends around 652px in a 900px viewport.
 
 **Follow-up Polish**
 - P3: a future iteration could add simple icons to the four navigation items if a matching icon library is added.

@@ -99,20 +99,20 @@ nav a.active,
 }
 
 main {
-  width: min(1120px, calc(100% - 36px));
+  width: min(1180px, calc(100% - 36px));
   margin: 0 auto;
 }
 
 .home-shell {
   display: grid;
-  grid-template-columns: minmax(0, 0.86fr) minmax(360px, 1.14fr);
-  gap: clamp(22px, 4vw, 52px);
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.9fr);
+  gap: clamp(20px, 3.2vw, 42px);
   align-items: stretch;
-  padding: 34px 0 20px;
+  padding: 26px 0 10px;
 }
 
 .home-intro {
-  min-height: 470px;
+  min-height: 360px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -132,7 +132,7 @@ main {
 .recipe-hero h1 {
   margin: 0;
   color: var(--ink);
-  font-size: clamp(38px, 6vw, 68px);
+  font-size: clamp(34px, 5vw, 56px);
   line-height: 1.04;
   letter-spacing: 0;
 }
@@ -171,7 +171,7 @@ main {
 
 .featured-recipe {
   position: relative;
-  min-height: 470px;
+  min-height: 360px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -182,7 +182,7 @@ main {
 .featured-recipe img {
   width: 100%;
   height: 100%;
-  min-height: 470px;
+  min-height: 360px;
   object-fit: cover;
 }
 
@@ -207,7 +207,7 @@ main {
 
 .featured-copy h2 {
   margin: 4px 0;
-  font-size: clamp(26px, 4vw, 42px);
+  font-size: clamp(24px, 3vw, 34px);
   line-height: 1.08;
 }
 
@@ -220,7 +220,7 @@ main {
 .section,
 .page-title,
 .recipe-detail {
-  padding: 42px 0;
+  padding: 34px 0;
 }
 
 .compact-section {
@@ -274,8 +274,8 @@ main {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(238px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
 }
 
 .recipe-card {
@@ -303,12 +303,12 @@ main {
 }
 
 .card-body {
-  padding: 15px;
+  padding: 13px;
 }
 
 .card-body h3 {
   margin: 0 0 5px;
-  font-size: 21px;
+  font-size: 19px;
   line-height: 1.22;
   letter-spacing: 0;
 }
@@ -338,7 +338,7 @@ main {
   display: grid;
   gap: 12px;
   margin-top: -12px;
-  padding: 14px;
+  padding: 12px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.72);
@@ -359,7 +359,7 @@ main {
 
 .recipe-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 440px);
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 380px);
   gap: 32px;
   align-items: center;
 }
@@ -511,7 +511,7 @@ footer {
 
   .featured-recipe,
   .featured-recipe img {
-    min-height: 360px;
+    min-height: 280px;
   }
 
   .meta-grid {
@@ -525,7 +525,7 @@ footer {
 
 @media (max-width: 560px) {
   main {
-    width: min(100% - 24px, 1120px);
+    width: min(100% - 20px, 1120px);
   }
 
   .brand {
@@ -535,7 +535,7 @@ footer {
   .home-intro h1,
   .page-title h1,
   .recipe-hero h1 {
-    font-size: 36px;
+    font-size: 32px;
   }
 
   .home-intro p,
@@ -544,59 +544,90 @@ footer {
   }
 
   .search-card {
-    flex-direction: column;
+    flex-direction: row;
     border-radius: 14px;
   }
 
   .search-card .button {
-    width: 100%;
+    width: auto;
+    min-width: 82px;
   }
 
   .featured-recipe,
   .featured-recipe img {
-    min-height: 330px;
+    min-height: 205px;
   }
 
   .featured-copy {
-    right: 12px;
-    bottom: 12px;
-    left: 12px;
-    padding: 14px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    padding: 12px;
+  }
+
+  .featured-copy h2 {
+    font-size: 24px;
   }
 
   .section,
   .page-title,
   .recipe-detail {
-    padding: 30px 0;
+    padding: 24px 0;
   }
 
+  .card-grid,
   .recipe-list {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
 
-  .recipe-list .recipe-card a {
-    display: grid;
-    grid-template-columns: 132px minmax(0, 1fr);
+  .recipe-card {
+    border-radius: 12px;
   }
 
+  .recipe-card img,
   .recipe-list .recipe-card img {
-    height: 100%;
-    min-height: 150px;
-    aspect-ratio: auto;
+    aspect-ratio: 1 / 0.86;
+    height: auto;
+    min-height: 0;
   }
 
+  .card-body,
   .recipe-list .card-body {
     min-width: 0;
-    padding: 13px;
+    padding: 10px;
   }
 
+  .card-body h3,
   .recipe-list .card-body h3 {
-    font-size: 18px;
+    font-size: 16px;
+    line-height: 1.22;
   }
 
+  .card-body p,
+  .recipe-list .card-body p {
+    margin-bottom: 8px;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .card-kicker {
+    margin-bottom: 5px;
+    font-size: 11px;
+  }
+
+  .chips {
+    gap: 5px;
+  }
+
+  .chips span {
+    padding: 3px 7px;
+    font-size: 11px;
+  }
+
+  .card-body .chips,
   .recipe-list .chips {
-    max-height: 56px;
+    max-height: 28px;
     overflow: hidden;
   }
 
