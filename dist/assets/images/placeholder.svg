@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="菜谱默认图片">
-  <rect width="800" height="600" fill="#f6dfbd"/>
-  <rect x="150" y="120" width="500" height="360" rx="24" fill="#fffaf0"/>
-  <circle cx="400" cy="300" r="120" fill="#8fa98a"/>
-  <path d="M330 320c42 42 98 42 140 0" fill="none" stroke="#fffaf0" stroke-width="20" stroke-linecap="round"/>
-</svg>

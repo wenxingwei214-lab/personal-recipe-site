@@ -1,6 +1,6 @@
-# Recipe Schema
+# 菜谱字段规范
 
-Use this schema for candidate and approved recipe Markdown.
+这个规范用于“待审批菜谱”和“已入库菜谱”的 Markdown 文件。
 
 ```yaml
 ---
@@ -26,29 +26,29 @@ source_note: 4-生活汇总/02-美食探店/菜谱做法/待审批/example.md
 ---
 ```
 
-Required website fields:
+## 网站必需字段
 
-- `title`: dish name.
-- `category`: one short category.
-- `tags`: list of searchable tags.
-- `cover`: path under `/assets/images/`, or `/assets/images/placeholder.svg`.
-- `time`: numeric minutes.
-- `difficulty`: `简单`, `中等`, or `进阶`.
-- `servings`: numeric serving count.
-- `calories`: numeric estimate, use `0` if unknown.
-- `tools`: list of cooking tools.
-- `ingredients`: list of `{ name, amount }`.
-- `favorite`: boolean.
-- `last_cooked`: `YYYY-MM-DD` or empty string.
+- `title`：菜名。
+- `category`：一个简短分类。
+- `tags`：便于搜索的标签列表。
+- `cover`：图片路径，通常在 `/assets/images/` 下；没有图片时用 `/assets/images/placeholder.svg`。
+- `time`：数字，单位为分钟。
+- `difficulty`：只能是 `简单`、`中等` 或 `进阶`。
+- `servings`：数字，表示份量/人数。
+- `calories`：数字估计值；不清楚就填 `0`。
+- `tools`：厨具列表。
+- `ingredients`：食材列表，格式是 `{ name, amount }`。
+- `favorite`：布尔值，`true` 或 `false`。
+- `last_cooked`：上次做这道菜的日期，格式 `YYYY-MM-DD`；没有就填空字符串 `""`。
 
-Pipeline fields:
+## 入库流程字段
 
-- `approved`: must be `true` before ingestion unless the current user message explicitly approves and the script is run with `--force`.
-- `source_platform`: source platform or collection type.
-- `source_url`: original URL when known.
-- `source_note`: Obsidian note path when known.
+- `approved`：正式入库前必须是 `true`；除非本轮对话里用户已经明确批准，并且脚本使用了 `--force`。
+- `source_platform`：来源平台或收集类型。
+- `source_url`：已知时填写原始链接。
+- `source_note`：已知时填写 Obsidian 来源笔记路径。
 
-Approved recipe body:
+## 已入库菜谱正文格式
 
 ```markdown
 ## 步骤

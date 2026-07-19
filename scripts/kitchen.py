@@ -9,7 +9,7 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 RECIPES = ROOT / "content" / "recipes"
 IMAGES = ROOT / "assets" / "images"
-DIST_INDEX = ROOT / "dist" / "index.html"
+SITE_INDEX = ROOT / "docs" / "index.html"
 
 
 def ask(label, default=""):
@@ -38,8 +38,8 @@ def run_build():
 
 def open_preview():
     run_build()
-    subprocess.run(["open", str(DIST_INDEX)], check=False)
-    print(f"\n已打开预览：{DIST_INDEX}")
+    subprocess.run(["open", str(SITE_INDEX)], check=False)
+    print(f"\n已打开预览：{SITE_INDEX}")
 
 
 def new_recipe():
@@ -141,9 +141,9 @@ def publish_draft():
     text = re.sub(r"^draft:\s*true\s*$", "draft: false", text, flags=re.M)
     path.write_text(text, encoding="utf-8")
     run_build()
-    subprocess.run(["open", str(DIST_INDEX)], check=False)
+    subprocess.run(["open", str(SITE_INDEX)], check=False)
     print(f"\n已发布：{title_of(path)}")
-    print(f"预览已更新：{DIST_INDEX}")
+    print(f"预览已更新：{SITE_INDEX}")
 
 
 def open_recipes_folder():
@@ -214,7 +214,7 @@ def attach_cover_image():
     text = recipe.read_text(encoding="utf-8")
     recipe.write_text(set_frontmatter_field(text, "cover", cover), encoding="utf-8")
     run_build()
-    subprocess.run(["open", str(DIST_INDEX)], check=False)
+    subprocess.run(["open", str(SITE_INDEX)], check=False)
 
     print(f"\n已配图：{title_of(recipe)}")
     print(f"菜谱文件：{recipe.name}")

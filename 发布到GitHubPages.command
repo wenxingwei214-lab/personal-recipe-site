@@ -8,11 +8,11 @@ REPO="$REPO_OWNER/$REPO_NAME"
 URL="https://$REPO_OWNER.github.io/$REPO_NAME/"
 
 echo "==> 1. 重新生成网站"
+npm run quiet-sidebar
 npm run build
 
-echo "==> 2. 同步 dist 到 docs（GitHub Pages 发布目录）"
-rm -rf docs
-cp -R dist docs
+echo "==> 2. 清理发布目录"
+find docs -name ".DS_Store" -delete
 touch docs/.nojekyll
 
 echo "==> 3. 初始化/更新 Git 仓库"
@@ -27,8 +27,8 @@ if ! git config user.email >/dev/null; then
   git config user.email "wenxingwei214-lab@users.noreply.github.com"
 fi
 
-echo "==> 4. 提交当前网站"
-git add .
+echo "==> 4. 提交当前网站（只上传 docs 发布目录，不上传原图和工作区）"
+git add docs .gitignore "发布到GitHubPages.command"
 if git diff --cached --quiet; then
   echo "没有新的文件变更，跳过 commit。"
 else
@@ -39,7 +39,7 @@ echo "==> 5. 创建或连接 GitHub 仓库"
 if gh repo view "$REPO" >/dev/null 2>&1; then
   echo "仓库已存在：$REPO"
 else
-  gh repo create "$REPO_NAME" --public --source=. --remote=origin --push
+  gh repo create "$REPO_NAME" --public
 fi
 
 if ! git remote get-url origin >/dev/null 2>&1; then

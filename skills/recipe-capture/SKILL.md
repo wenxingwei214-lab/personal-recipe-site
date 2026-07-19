@@ -1,54 +1,62 @@
 ---
 name: recipe-capture
-description: Capture, normalize, review, and approve recipes collected from Xiaohongshu, Douyin, web pages, screenshots, pasted notes, or Obsidian life-summary notes into the user's personal static recipe site. Use when the user wants to turn external cooking content into structured recipe Markdown, maintain an approval step before adding it to content/recipes, connect approved recipes back to 4-生活汇总/02-美食探店/菜谱做法, or update the Obsidian-driven personal recipe website.
+description: 将小红书、抖音、网页、截图、粘贴文本或 Obsidian 生活汇总笔记中的菜谱，整理成结构化菜谱 Markdown；先生成待审批版本，用户确认后再写入个人静态菜谱网站。适用于：把外部做饭内容收进个人菜谱站、维护审批流程、把已入库菜谱反链到 4-生活汇总/02-美食探店/菜谱做法、更新 Obsidian 驱动的个人菜谱网站。
 ---
 
-# Recipe Capture
+# 菜谱采集入库（Recipe Capture）
 
-## Purpose
+## 用途
 
-Turn messy food content from social platforms, webpages, screenshots, transcripts, or notes into the user's personal recipe site with the fewest user-facing steps:
+把来源很杂的做饭内容——比如小红书、抖音、网页、截图、视频转写、随手笔记——整理进你的个人菜谱网站。目标是尽量少打扰你：
 
-1. Collect source material.
-2. Draft one candidate recipe.
-3. Ask for approval.
-4. After approval, ingest and run `npm run build`.
-5. Report the preview path and any files changed.
+1. 收集原始素材。
+2. 先生成一份“待审批菜谱”。
+3. 让你确认。
+4. 你明确同意后，才正式入库并运行 `npm run build`。
+5. 最后汇报预览路径和改动文件。
 
-Never add an unapproved recipe directly to `content/recipes/`.
+**重要：未经你确认，不要直接把菜谱写入 `content/recipes/`。**
 
-## Project Paths
+## 项目路径
 
-Assume the workspace root is the Obsidian vault unless the user says otherwise.
+默认当前工作区根目录就是 Obsidian 仓库，除非用户另有说明。
 
-- Recipe website: `5-个人网站/个人菜谱`
-- Approved recipes: `5-个人网站/个人菜谱/content/recipes`
-- Recipe images: `5-个人网站/个人菜谱/assets/images`
-- Static build output: `5-个人网站/个人菜谱/dist`
-- AI inbox note: `5-个人网站/个人菜谱/AI菜谱收集箱.md`
-- Food collection notes: `4-生活汇总/02-美食探店`
-- Recipe-method collection notes: `4-生活汇总/02-美食探店/菜谱做法`
-- Candidate review notes: prefer `4-生活汇总/02-美食探店/菜谱做法/待审批`
+- 菜谱网站根目录：`5-个人网站/个人菜谱`
+- 已正式入库菜谱：`5-个人网站/个人菜谱/content/recipes`
+- 菜谱图片：`5-个人网站/个人菜谱/assets/images`
+- 静态构建输出 / GitHub Pages 发布目录：`5-个人网站/个人菜谱/docs`
+- AI 菜谱收集箱：`5-个人网站/个人菜谱/AI菜谱收集箱.md`
+- 美食/生活收集笔记：`4-生活汇总/02-美食探店`
+- 菜谱做法收集笔记：`4-生活汇总/02-美食探店/菜谱做法`
+- 待审批菜谱：优先放到 `4-生活汇总/02-美食探店/菜谱做法/待审批`
 
-If these folders do not exist, create only the missing folders required by the current task.
+如果这些文件夹不存在，只创建当前任务必须用到的缺失文件夹。
 
-## Workflow
+## 工作流程
 
-### Default user-facing flow
+### 默认给用户看的流程
 
-Use this simple flow for most requests:
+多数请求使用这个简单流程：
 
-1. If the user says `处理菜谱收集箱`, read `5-个人网站/个人菜谱/AI菜谱收集箱.md` under `## 新素材粘贴区`.
-2. If the user pastes text, URLs, screenshots/OCR, or notes directly, use that as the source.
-3. Create one candidate note under `4-生活汇总/02-美食探店/菜谱做法/待审批`.
-4. Show a short confirmation checklist.
-5. Ingest only after explicit approval.
-6. Run the approve script with `--build`; `npm run build` already optimizes images.
-7. Report only what the user needs: dish added, image status, preview path, and publish status if relevant.
+1. 如果用户说 `处理菜谱收集箱`，读取 `5-个人网站/个人菜谱/AI菜谱收集箱.md` 里的 `## 新素材粘贴区`。
+2. 如果用户直接粘贴文本、链接、截图 OCR、笔记内容，就把这些当作素材来源。
+3. 在 `4-生活汇总/02-美食探店/菜谱做法/待审批` 下创建一份待审批菜谱笔记。
+4. 给用户展示一个简短确认清单。
+5. 只有在用户明确批准后，才正式入库。
+6. 使用审批脚本并带上 `--build`；`npm run build` 会顺便优化图片。
+7. 最后只汇报用户真正需要知道的内容：添加了哪道菜、图片状态、预览路径、发布状态（如果相关）。
 
-Do not ask the user to remember `content/recipes`, `assets/images`, `dist`, `docs`, or build commands unless they are editing manually.
+不要要求用户记住 `content/recipes`、`assets/images`、`docs` 或构建命令，除非用户要手动编辑。
 
-Confirmation checklist format:
+保持 Obsidian 文件树清爽：`content`、`assets`、`docs`、`src`、`scripts`、`skills` 都是网站后台目录。如果用户说菜谱网站在 Obsidian 文件树里看起来重复或太吵，就在 `5-个人网站/个人菜谱` 目录运行：
+
+```bash
+npm run quiet-sidebar
+```
+
+然后告诉用户：如果 Obsidian 文件树没有立刻刷新，可以重载一下 Obsidian。
+
+确认清单格式：
 
 ```markdown
 ## 待确认
@@ -58,53 +66,59 @@ Confirmation checklist format:
 3. 图片用哪种：你提供 / 帮你找图 / 生成示意图 / 先用占位图？
 ```
 
-After the user confirms, create the candidate note, approve it if confirmation is explicit, run the ingestion script, rebuild the site, and report the preview path.
+用户确认后：创建候选笔记；如果确认已经很明确，就审批入库；运行入库脚本；重建网站；最后汇报预览路径。
 
-### Collect source
+### 收集来源素材
 
-When the user provides a URL, copied text, screenshot transcription, video notes, or a social-platform recipe:
+当用户提供链接、复制文本、截图转写、视频笔记或社交平台菜谱时：
 
-- Record `source_platform` as `小红书`, `抖音`, `B站`, `公众号`, `网页`, `口述`, or `未知`.
-- Preserve the original URL when provided as `source_url`.
-- If the source is already an Obsidian note, keep its path as `source_note`.
-- If the source is only pasted text, create or update a collection note under `4-生活汇总/02-美食探店/菜谱做法/待审批`.
-- Do not download media unless the user asks, provides files, or approves a searched/generated image plan.
+- `source_platform` 填：`小红书`、`抖音`、`B站`、`公众号`、`网页`、`口述` 或 `未知`。
+- 如果有原始链接，保留到 `source_url`。
+- 如果来源本身是 Obsidian 笔记，把笔记路径保留到 `source_note`。
+- 如果只有粘贴文本，就在 `4-生活汇总/02-美食探店/菜谱做法/待审批` 下创建或更新收集笔记。
+- 不要擅自下载媒体；只有用户要求、用户提供文件，或用户批准了“搜索/生成图片”的方案后，才处理图片。
 
-### Image handling
+### 图片处理
 
-Keep image choices simple:
+图片选择保持简单：
 
-- If the user provides a finished-dish photo, copy it to `assets/images` using the recipe slug, set `cover`, and run `npm run build`.
-- If the user has no photo, offer a generated temporary cover or use `/assets/images/placeholder.svg`.
-- Do not silently use searched external images as covers.
-- Treat black, blank, missing, or very slow mobile images as a failed build; run `npm run build` again and check `dist/assets/images`.
+- 如果用户提供成品菜照片，复制到 `assets/images`，文件名使用菜谱 slug，设置 `cover`，然后运行 `npm run build`。
+- 如果用户没有照片，可以提供“生成临时封面”或使用 `/assets/images/placeholder.svg`。
+- 不要偷偷用网上搜来的外部图片当封面。
+- 如果手机端图片黑屏、空白、缺失或加载很慢，当作构建失败处理；重新运行 `npm run build`，并检查 `docs/assets/images`。
 
-`npm run build` is the only normal build command. It backs up originals, optimizes raster covers, and rebuilds the site.
+普通情况下唯一需要使用的构建命令是：
 
-### Normalize into candidate Markdown
+```bash
+npm run build
+```
 
-Create a candidate recipe Markdown note, not an approved recipe file. Use the exact field schema in `references/recipe-schema.md`.
+它会备份原图、优化栅格封面图，并重建网站。
 
-Candidate frontmatter must include:
+### 规范成待审批 Markdown
+
+先创建“待审批菜谱 Markdown 笔记”，不要直接创建正式菜谱文件。字段格式严格参考 `references/recipe-schema.md`。
+
+候选笔记 frontmatter 必须包含：
 
 - `approved: false`
 - `source_platform`
-- `source_url` when known
-- `source_note` when known
-- all standard recipe fields: `title`, `category`, `tags`, `cover`, `time`, `difficulty`, `servings`, `calories`, `tools`, `ingredients`, `favorite`, `last_cooked`
+- 已知时填写 `source_url`
+- 已知时填写 `source_note`
+- 标准菜谱字段：`title`、`category`、`tags`、`cover`、`time`、`difficulty`、`servings`、`calories`、`tools`、`ingredients`、`favorite`、`last_cooked`
 
-Use conservative defaults when the source is incomplete:
+当来源信息不完整时，使用保守默认值：
 
 - `cover: /assets/images/placeholder.svg`
 - `calories: 0`
 - `favorite: false`
 - `last_cooked: ""`
-- `difficulty`: infer only as `简单`, `中等`, or `进阶`
-- `time`: numeric minutes when possible
-- `servings`: default to `2` if unknown
-- missing amounts: use practical estimates and list them under `## 来源摘记` as inferred
+- `difficulty` 只能推断为：`简单`、`中等` 或 `进阶`
+- `time` 尽量写数字分钟
+- `servings` 不清楚时默认 `2`
+- 用量缺失时，给出实用估计，并在 `## 来源摘记` 里说明这是推断
 
-The body should use these sections in order:
+正文按这个顺序组织：
 
 ```markdown
 ## 步骤
@@ -124,28 +138,28 @@ The body should use these sections in order:
 - ...
 ```
 
-Clearly mark uncertain inferred details in `## 来源摘记`, not in the structured fields. Read `references/recipe-schema.md` only when creating or validating frontmatter.
+不要把“不确定”写进结构化字段里；不确定和推断统一写到 `## 来源摘记`。只有在创建或校验 frontmatter 时才需要读取 `references/recipe-schema.md`。
 
-### Ask for approval
+### 请求审批
 
-Show the candidate summary before writing to the website:
+正式写入网站前，先给用户展示候选摘要：
 
-- dish name, category, time, difficulty, servings
-- tools
-- ingredients
-- inferred or uncertain parts
-- image plan: user image, searched image, generated image, or placeholder
-- source link or source note
+- 菜名、分类、时间、难度、份量
+- 厨具
+- 食材
+- 推断或不确定的部分
+- 图片方案：用户提供 / 搜索图片 / 生成图片 / 占位图
+- 来源链接或来源笔记
 
-Ask the user to approve, revise, or reject. Proceed to ingestion only when the user clearly approves.
+然后问用户是批准、修改还是放弃。只有用户明确批准后才能入库。
 
-Approval signals include direct phrases such as `通过`, `批准`, `可以入库`, `收录`, `加入菜谱`, `就这样`.
+明确批准信号包括：`通过`、`批准`、`可以入库`、`收录`、`加入菜谱`、`就这样` 等。
 
-### Ingest approved recipe
+### 正式入库
 
-After approval, set `approved: true` in the candidate file or pass `--force` only if the user explicitly approved in the current conversation.
+用户批准后，把候选文件里的 `approved` 改成 `true`；或者仅在本轮对话中用户明确批准时，使用 `--force`。
 
-Run:
+运行：
 
 ```bash
 python3 skills/recipe-capture/scripts/approve_recipe.py \
@@ -155,7 +169,7 @@ python3 skills/recipe-capture/scripts/approve_recipe.py \
   --build
 ```
 
-If the generated slug would be unclear for a Chinese title, pass a readable slug:
+如果中文菜名生成的 slug 不清楚，可以传入一个可读的英文 slug：
 
 ```bash
 python3 skills/recipe-capture/scripts/approve_recipe.py \
@@ -165,32 +179,32 @@ python3 skills/recipe-capture/scripts/approve_recipe.py \
   --build
 ```
 
-The script writes the recipe into `content/recipes/`, preserves source metadata, appends an approved-recipe link to the source note when provided, and optionally runs `npm run build`.
+脚本会把菜谱写入 `content/recipes/`，保留来源元数据，在来源笔记中追加已入库反链，并可选运行 `npm run build`。
 
-### Verify
+### 验证
 
-After ingestion:
+入库后：
 
-- Run `npm run build` from the recipe website if the script was not run with `--build`.
-- Check that the new recipe file exists in `content/recipes`.
-- Check that `dist/recipes/index.html` contains the recipe title.
-- Check that the referenced cover exists in `dist/assets/images/`.
-- For any changed raster cover, confirm the optimized file is not a large phone original.
-- If browser preview is available, check a narrow/mobile viewport for black or blank images.
-- Tell the user where to preview. Keep the final answer short.
+- 如果脚本没有带 `--build`，就在菜谱网站目录运行 `npm run build`。
+- 检查新菜谱文件是否存在于 `content/recipes`。
+- 检查 `docs/recipes/index.html` 是否包含新菜名。
+- 检查 `cover` 指向的图片是否存在于 `docs/assets/images/`。
+- 如果改动了栅格封面图，确认优化后的图片不是超大的手机原图。
+- 如果可以浏览器预览，检查手机窄屏下图片是否黑屏或空白。
+- 最后告诉用户在哪里预览，回复保持简短。
 
-## Extraction Rules
+## 提取规则
 
-- Keep personal usability ahead of perfect archival fidelity.
-- Convert platform-style tips into `注意事项` or `下次优化`.
-- Split ingredients into `{ name, amount }` objects.
-- Keep tools short and practical, e.g. `炒锅`, `空气炸锅`, `电饭煲`, `烤箱`.
-- Prefer categories already used by the site: `家常快手`, `一人食`, `汤羹`, or add a short new category when needed.
-- Tags should describe retrieval needs: `快手菜`, `下饭菜`, `早餐`, `高蛋白`, `便当`, `素食`, `空气炸锅`.
-- Do not copy long platform text verbatim into the approved recipe. Summarize and rewrite into personal cooking instructions.
-- Keep source attribution in metadata and `来源摘记`.
+- 个人实用性优先于完全保留原文。
+- 平台里的技巧、避坑，整理到 `注意事项` 或 `下次优化`。
+- 食材拆成 `{ name, amount }` 对象。
+- 厨具写短且实用，例如：`炒锅`、`空气炸锅`、`电饭煲`、`烤箱`。
+- 分类优先使用网站已有分类：`家常快手`、`一人食`、`汤羹`；必要时可以新增简短分类。
+- 标签用于日后检索，例如：`快手菜`、`下饭菜`、`早餐`、`高蛋白`、`便当`、`素食`、`空气炸锅`。
+- 不要把平台长文大段原样复制到正式菜谱里；要改写成个人可执行的烹饪说明。
+- 来源归因保留在元数据和 `来源摘记` 中。
 
-## References
+## 参考文件
 
-- Read `references/recipe-schema.md` when creating or validating candidate frontmatter.
-- Read `references/intake-template.md` when making a new Obsidian candidate note.
+- 创建或校验候选菜谱 frontmatter 时，读取 `references/recipe-schema.md`。
+- 新建 Obsidian 待审批候选笔记时，读取 `references/intake-template.md`。

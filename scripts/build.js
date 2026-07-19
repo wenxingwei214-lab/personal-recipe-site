@@ -6,24 +6,26 @@ const contentDir = path.join(root, "content");
 const recipesDir = path.join(contentDir, "recipes");
 const assetsDir = path.join(root, "assets");
 const srcDir = path.join(root, "src");
-const distDir = path.join(root, "dist");
+const outputDir = path.join(root, "docs");
 
 const site = {
   title: "我的小厨房",
   description: "把 Obsidian 里的家常菜、常做菜和下次想优化的小细节，整理成一个轻量、好看的个人菜谱网页。"
 };
 
-function resetDist() {
-  fs.rmSync(distDir, { recursive: true, force: true });
-  fs.mkdirSync(distDir, { recursive: true });
-  copyDir(assetsDir, path.join(distDir, "assets"));
-  copyDir(srcDir, path.join(distDir, "src"));
+function resetOutput() {
+  fs.rmSync(outputDir, { recursive: true, force: true });
+  fs.mkdirSync(outputDir, { recursive: true });
+  copyDir(assetsDir, path.join(outputDir, "assets"));
+  copyDir(srcDir, path.join(outputDir, "src"));
+  fs.writeFileSync(path.join(outputDir, ".nojekyll"), "");
 }
 
 function copyDir(from, to) {
   if (!fs.existsSync(from)) return;
   fs.mkdirSync(to, { recursive: true });
   for (const entry of fs.readdirSync(from, { withFileTypes: true })) {
+    if (entry.name === ".DS_Store") continue;
     const source = path.join(from, entry.name);
     const target = path.join(to, entry.name);
     if (entry.isDirectory()) copyDir(source, target);
@@ -415,16 +417,16 @@ function renderIngredients(recipes) {
 }
 
 function writePage(file, html) {
-  const target = path.join(distDir, file);
+  const target = path.join(outputDir, file);
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.writeFileSync(target, html);
 }
 
-resetDist();
+resetOutput();
 const recipes = readRecipes();
 renderHome(recipes);
 renderRecipeList(recipes);
 renderRecipeDetails(recipes);
 renderWeek();
 renderIngredients(recipes);
-console.log(`Built ${recipes.length} recipes into dist/`);
+console.log(`Built ${recipes.length} recipes into docs/`);

@@ -1,14 +1,14 @@
-# Intake Template
+# 待审批菜谱模板
 
-Create candidate notes under:
+待审批候选笔记统一创建在：
 
 `4-生活汇总/02-美食探店/菜谱做法/待审批`
 
-Filename pattern:
+文件名格式：
 
 `YYYY-MM-DD 平台｜菜名｜待审批.md`
 
-Candidate note structure:
+候选笔记结构：
 
 ```markdown
 ---
@@ -52,4 +52,7 @@ source_note:
 - 不确定信息：
 ```
 
-After user approval, either change `approved: true` or run the ingestion script with `--force` only when approval is explicit in the current conversation.
+用户批准后，有两种方式正式入库：
+
+1. 把候选文件里的 `approved` 改成 `true`；或
+2. 仅当本轮对话里用户已经明确批准时，运行入库脚本并加 `--force`。

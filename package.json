@@ -6,7 +6,8 @@
   "scripts": {
     "new": "python3 scripts/new_recipe.py",
     "build": "python3 scripts/optimize_images.py && node scripts/build.js",
-    "serve": "npm run build && python3 -m http.server 4173 -d dist",
-    "optimize-images": "python3 scripts/optimize_images.py"
+    "serve": "npm run build && python3 -m http.server 4173 -d docs",
+    "optimize-images": "python3 scripts/optimize_images.py",
+    "quiet-sidebar": "python3 scripts/quiet_obsidian_sidebar.py"
   }
 }

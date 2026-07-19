@@ -1,5 +1,7 @@
 node_modules/
 .DS_Store
 *.log
-原图备份/
 assets/images/IMG_*
+dist/
+5-个人网站/
+4-生活汇总/
