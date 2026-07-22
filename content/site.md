@@ -4,6 +4,9 @@ home_eyebrow: 好好吃饭，慢慢变好
 home_title: 阿薇小厨房~
 description: 嘿嘿嘿嘿~~
 search_placeholder: 想吃什么？搜菜名、食材、标签
+recipe_list_eyebrow: RECIPE LIBRARY
+recipe_list_title: 全部菜谱
+recipe_list_description:
 category_heading: 按场景找菜
 recent_heading: 最近入库
 recent_link_label: 继续翻
@@ -23,6 +26,9 @@ featured_slug: lotus-root-pork-rib-soup
 - `home_title`：首页最大的一行标题。
 - `description`：首页标题下面的说明文字，也会作为网站简介。
 - `search_placeholder`：搜索框里的提示文字。
+- `recipe_list_eyebrow`：全部菜谱页标题上方的小字。
+- `recipe_list_title`：全部菜谱页的大标题。
+- `recipe_list_description`：全部菜谱页标题下面的说明文字；留空就不显示。
 - `category_heading`：分类筛选区域标题。
 - `recent_heading`：最近入库区域标题。
 - `recent_link_label`：最近入库右侧链接文字。

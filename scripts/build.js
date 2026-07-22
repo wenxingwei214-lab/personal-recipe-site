@@ -14,6 +14,9 @@ const defaultSite = {
   home_eyebrow: "好好吃饭，慢慢变好",
   home_title: "认真吃饭，也是在认真生活。",
   search_placeholder: "想吃什么？搜菜名、食材、标签",
+  recipe_list_eyebrow: "RECIPE LIBRARY",
+  recipe_list_title: "全部菜谱",
+  recipe_list_description: "按场景快速筛一遍，不用在手机上填一堆表单。",
   category_heading: "按场景找菜",
   recent_heading: "最近入库",
   recent_link_label: "继续翻",
@@ -373,9 +376,9 @@ function renderHome(recipes) {
 
 function renderRecipeList(recipes) {
   const body = `<section class="page-title">
-  <p class="eyebrow">RECIPE LIBRARY</p>
-  <h1>全部菜谱</h1>
-  <p>按场景快速筛一遍，不用在手机上填一堆表单。</p>
+  <p class="eyebrow">${escapeHtml(site.recipe_list_eyebrow)}</p>
+  <h1>${escapeHtml(site.recipe_list_title)}</h1>
+  ${site.recipe_list_description ? `<p>${escapeHtml(site.recipe_list_description)}</p>` : ""}
 </section>
 <section class="filters" aria-label="菜谱筛选">
   <div class="search-card list-search">
