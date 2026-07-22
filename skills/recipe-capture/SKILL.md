@@ -27,10 +27,10 @@ description: 快速维护 Obsidian 驱动的个人菜谱网站：把用户口述
 步骤：
 
 1. 从用户素材生成 `content/recipes/<slug>.md`。
-2. 如有图片，先处理成 `assets/images/<slug>.jpg`，再写 `cover`。
+2. 如有图片，必须先处理成手机版友好的 `assets/images/<slug>.jpg`，再写 `cover`。
 3. 更新 `01-我的菜谱清单.md`。
 4. 运行 `npm run build`。
-5. 验证 `docs/recipes/index.html` 包含新菜名，`docs/assets/images/<slug>.jpg` 存在且大小合理。
+5. 验证 `docs/recipes/index.html` 包含新菜名，`docs/assets/images/<slug>.jpg` 存在且通常小于 `350KB`。
 6. 需要公网时，提交并 `git push`；或让用户双击 `发布到GitHubPages.command`。
 
 ### 2. 复杂来源才待审批
@@ -59,7 +59,7 @@ python3 skills/recipe-capture/scripts/approve_recipe.py \
 1. 先查 `content/recipes/<slug>.md` 的 `cover`。
 2. 图片必须先保存到本地临时文件或 `assets/images`，不要只贴外站图片 URL 给用户。
 3. 用 `view_image` 或等价方式确认图片能显示、不是黑图。
-4. 转为 JPG，最长边建议 `1200px`，质量 `72` 左右，目标通常小于 `350KB`。
+4. 转为 JPG，最长边建议 `1100px`，质量 `68` 左右，目标通常小于 `350KB`。
 5. 更新 `cover`，运行 `npm run build`。
 6. 检查生成 HTML 里图片带 `?v=` 版本参数，避免手机缓存旧图。
 
@@ -68,13 +68,24 @@ python3 skills/recipe-capture/scripts/approve_recipe.py \
 - 用户上传的成品图：优先使用。
 - 网图候选：必须下载到本地并可视检查后再展示，展示本地图片，不要只给网站链接。
 - 网站封面优先用 `.jpg`；不要把大 PNG 作为封面。
-- 如果图片超过 `450KB`，必须压缩或说明原因。
+- 如果图片超过 `350KB`，必须压缩或说明原因。
+- 如果菜谱 `cover` 写的是 `.png`，运行 `npm run build` 时应自动转成同名 `.jpg` 并回写 `cover`。
+- 发布目录 `docs/assets/images` 只应包含网页实际引用的图片，不要把未使用的大 PNG 原图发布出去。
+- 列表页只让首屏前几张图片 `eager` 加载，其余图片保持 `lazy`，避免手机一次抢太多图。
 - 如果压缩后异常小、黑屏、空白，视为失败，回退到原图或重新找图。
 
 常用压缩命令：
 
 ```bash
-sips -s format jpeg -s formatOptions 72 -Z 1200 "<input>" --out "assets/images/<slug>.jpg"
+sips -s format jpeg -s formatOptions 68 -Z 1100 "<input>" --out "assets/images/<slug>.jpg"
+```
+
+构建验证：
+
+```bash
+npm run build
+find docs/assets/images -maxdepth 1 -type f -print -exec ls -lh {} \;
+grep -n "<img" docs/recipes/index.html | head -12
 ```
 
 ## 正式菜谱字段
