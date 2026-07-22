@@ -445,6 +445,14 @@ main {
   background: var(--paper-soft);
 }
 
+.prose mark {
+  border-radius: 5px;
+  padding: 1px 4px;
+  background: #fff0b8;
+  color: inherit;
+  font-weight: 780;
+}
+
 .ingredient-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

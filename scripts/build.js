@@ -212,6 +212,7 @@ function markdownToHtml(markdown) {
 
 function inline(value) {
   return escapeHtml(value)
+    .replace(/==(.*?)==/g, "<mark>$1</mark>")
     .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
     .replace(/`(.*?)`/g, "<code>$1</code>");
 }
