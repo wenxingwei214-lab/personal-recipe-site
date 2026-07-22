@@ -34,6 +34,8 @@ def main():
     for path in IMG_DIR.iterdir():
         if not path.is_file() or path.suffix.lower() not in EXTS:
             continue
+        if path.suffix.lower() == ".png" and path.with_suffix(".jpg").exists():
+            continue
         dim = dimensions(path)
         if not dim:
             continue

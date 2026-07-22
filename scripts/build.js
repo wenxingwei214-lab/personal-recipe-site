@@ -8,10 +8,20 @@ const assetsDir = path.join(root, "assets");
 const srcDir = path.join(root, "src");
 const outputDir = path.join(root, "docs");
 
-const site = {
+const defaultSite = {
   title: "我的小厨房",
-  description: "把喜欢吃、愿意复做的菜慢慢攒起来。忙一点也没关系，先把今天这一顿照顾好。"
+  description: "把喜欢吃、愿意复做的菜慢慢攒起来。忙一点也没关系，先把今天这一顿照顾好。",
+  home_eyebrow: "好好吃饭，慢慢变好",
+  home_title: "认真吃饭，也是在认真生活。",
+  search_placeholder: "想吃什么？搜菜名、食材、标签",
+  category_heading: "按场景找菜",
+  recent_heading: "最近入库",
+  recent_link_label: "继续翻",
+  footer: "由 Obsidian Markdown 生成 · 只保留给自己真正会用的功能",
+  featured_slug: "lotus-root-pork-rib-soup"
 };
+
+let site = { ...defaultSite };
 
 const quickFilters = [
   { label: "全部", values: [] },
@@ -27,9 +37,25 @@ const quickFilters = [
 function resetOutput() {
   fs.rmSync(outputDir, { recursive: true, force: true });
   fs.mkdirSync(outputDir, { recursive: true });
-  copyDir(assetsDir, path.join(outputDir, "assets"));
   copyDir(srcDir, path.join(outputDir, "src"));
   fs.writeFileSync(path.join(outputDir, ".nojekyll"), "");
+}
+
+function copyPublicAssets(recipes) {
+  const imagePaths = new Set([
+    "assets/images/cover-kitchen.svg",
+    "assets/images/placeholder.svg",
+    ...recipes.map((recipe) => String(recipe.cover || "").replace(/^\//, ""))
+  ]);
+
+  for (const relativePath of imagePaths) {
+    if (!relativePath || !relativePath.startsWith("assets/")) continue;
+    const source = path.join(root, relativePath);
+    if (!fs.existsSync(source) || !fs.statSync(source).isFile()) continue;
+    const target = path.join(outputDir, relativePath);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.copyFileSync(source, target);
+  }
 }
 
 function copyDir(from, to) {
@@ -230,6 +256,13 @@ function readRecipes() {
     .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
 }
 
+function readSiteConfig() {
+  const siteFile = path.join(contentDir, "site.md");
+  if (!fs.existsSync(siteFile)) return { ...defaultSite };
+  const { data } = parseFrontmatter(fs.readFileSync(siteFile, "utf8"));
+  return { ...defaultSite, ...data };
+}
+
 function prefixForDepth(depth) {
   return "../".repeat(depth);
 }
@@ -283,12 +316,12 @@ function page(title, body, active = "", depth = 0) {
     <nav>${nav}</nav>
   </header>
   <main>${body}</main>
-  <footer>由 Obsidian Markdown 生成 · 只保留给自己真正会用的功能</footer>
+  <footer>${escapeHtml(site.footer)}</footer>
 </body>
 </html>`;
 }
 
-function recipeCard(recipe, depth = 0, loading = "eager") {
+function recipeCard(recipe, depth = 0, loading = "lazy") {
   return `<article class="recipe-card" data-category="${escapeHtml(recipe.category)}" data-tags="${escapeHtml(recipe.tags.join(","))}" data-tools="${escapeHtml(recipe.tools.join(","))}" data-time="${escapeHtml(recipe.time)}" data-title="${escapeHtml(recipe.title)}">
   <a href="${recipeUrl(recipe, depth)}" aria-label="查看 ${escapeHtml(recipe.title)}">
     ${imgTag(assetPath(recipe.cover, depth), recipe.title, "", loading)}
@@ -303,15 +336,15 @@ function recipeCard(recipe, depth = 0, loading = "eager") {
 }
 
 function renderHome(recipes) {
-  const heroRecipe = recipes.find((recipe) => recipe.slug === "lotus-root-pork-rib-soup") || recipes[0];
+  const heroRecipe = recipes.find((recipe) => recipe.slug === site.featured_slug) || recipes[0];
   const recent = recipes.filter((recipe) => recipe.slug !== heroRecipe.slug).slice(0, 4);
   const body = `<section class="home-shell">
   <div class="home-intro">
-    <p class="eyebrow">好好吃饭，慢慢变好</p>
-    <h1>认真吃饭，也是在认真生活。</h1>
-    <p>${site.description}</p>
+    <p class="eyebrow">${escapeHtml(site.home_eyebrow)}</p>
+    <h1>${escapeHtml(site.home_title)}</h1>
+    <p>${escapeHtml(site.description)}</p>
     <form class="search-card" action="recipes/index.html">
-      <input name="search" type="search" placeholder="想吃什么？搜菜名、食材、标签" aria-label="搜索菜谱">
+      <input name="search" type="search" placeholder="${escapeHtml(site.search_placeholder)}" aria-label="搜索菜谱">
       <button class="button primary" type="submit">搜索</button>
     </form>
   </div>
@@ -326,14 +359,14 @@ function renderHome(recipes) {
 </section>
 <section class="section compact-section">
   <div class="section-head">
-    <h2>按场景找菜</h2>
+    <h2>${escapeHtml(site.category_heading)}</h2>
     <a href="recipes/index.html">全部 ${recipes.length} 道</a>
   </div>
   <div class="quick-filter-row">${quickFilters.map((filter) => filter.label === "全部" ? `<a class="filter-pill active" href="recipes/index.html">${filter.label}</a>` : `<a class="filter-pill" href="recipes/index.html?tag=${encodeURIComponent(filter.label)}">${escapeHtml(filter.label)}</a>`).join("")}</div>
 </section>
 <section class="section compact-section">
-  <div class="section-head"><h2>最近入库</h2><a href="recipes/index.html">继续翻</a></div>
-  <div class="card-grid feature-grid">${recent.map((recipe) => recipeCard(recipe, 0)).join("")}</div>
+  <div class="section-head"><h2>${escapeHtml(site.recent_heading)}</h2><a href="recipes/index.html">${escapeHtml(site.recent_link_label)}</a></div>
+  <div class="card-grid feature-grid">${recent.map((recipe, index) => recipeCard(recipe, 0, index < 2 ? "eager" : "lazy")).join("")}</div>
 </section>`;
   writePage("index.html", page("首页", body, "首页", 0));
 }
@@ -360,7 +393,7 @@ function renderRecipeList(recipes) {
   </div>
 </section>
 <p class="result-count"><span id="recipe-count">${recipes.length}</span> 道菜谱</p>
-<section class="card-grid recipe-list">${recipes.map((recipe) => recipeCard(recipe, 1)).join("")}</section>`;
+<section class="card-grid recipe-list">${recipes.map((recipe, index) => recipeCard(recipe, 1, index < 4 ? "eager" : "lazy")).join("")}</section>`;
   writePage("recipes/index.html", page("全部菜谱", body, "菜谱", 1));
 }
 
@@ -431,8 +464,10 @@ function writePage(file, html) {
   fs.writeFileSync(target, html);
 }
 
-resetOutput();
+site = readSiteConfig();
 const recipes = readRecipes();
+resetOutput();
+copyPublicAssets(recipes);
 renderHome(recipes);
 renderRecipeList(recipes);
 renderRecipeDetails(recipes);
