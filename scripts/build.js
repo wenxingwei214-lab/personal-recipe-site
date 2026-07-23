@@ -210,6 +210,44 @@ function markdownToHtml(markdown) {
   return html.join("\n");
 }
 
+function extractSection(markdown, headingNames) {
+  const lines = markdown.split(/\r?\n/);
+  const start = lines.findIndex((line) => {
+    const match = line.trim().match(/^##\s+(.+)$/);
+    return match && headingNames.includes(match[1].trim());
+  });
+  if (start === -1) return { section: "", markdown };
+
+  let end = lines.length;
+  for (let i = start + 1; i < lines.length; i++) {
+    if (/^##\s+/.test(lines[i].trim())) {
+      end = i;
+      break;
+    }
+  }
+
+  const before = lines.slice(0, start);
+  const after = lines.slice(end);
+  return {
+    section: lines.slice(start + 1, end).join("\n").trim(),
+    markdown: [...before, ...after].join("\n").trim()
+  };
+}
+
+function parseIngredientsFromMarkdown(section) {
+  return section
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => /^[-*]\s+/.test(line))
+    .map((line) => line.replace(/^[-*]\s+/, "").trim())
+    .map((line) => {
+      const match = line.match(/^(.+?)(?:\s*[：:]\s*|\s+-\s+)(.+)$/);
+      if (!match) return { name: line, amount: "" };
+      return { name: match[1].trim(), amount: match[2].trim() };
+    })
+    .filter((item) => item.name);
+}
+
 function inline(value) {
   return escapeHtml(value)
     .replace(/==(.*?)==/g, "<mark>$1</mark>")
@@ -238,13 +276,15 @@ function readRecipes() {
       const { data, body } = parseFrontmatter(fs.readFileSync(fullPath, "utf8"));
       if (data.draft === true) return null;
       const slug = slugFromFile(file);
+      const ingredientSection = extractSection(body, ["原料", "食材"]);
+      const bodyIngredients = parseIngredientsFromMarkdown(ingredientSection.section);
       return {
         slug,
         title: data.title || slug,
         category: data.category || "未分类",
         tags: data.tags || [],
         tools: data.tools || [],
-        ingredients: data.ingredients || [],
+        ingredients: bodyIngredients.length ? bodyIngredients : data.ingredients || [],
         cover: data.cover || "/assets/images/placeholder.svg",
         time: data.time || "",
         difficulty: data.difficulty || "未标注",
@@ -253,7 +293,7 @@ function readRecipes() {
         favorite: Boolean(data.favorite),
         last_cooked: data.last_cooked || "",
         updatedAt: fs.statSync(fullPath).mtime.toISOString().slice(0, 10),
-        bodyHtml: markdownToHtml(body)
+        bodyHtml: markdownToHtml(ingredientSection.markdown)
       };
     })
     .filter(Boolean)
