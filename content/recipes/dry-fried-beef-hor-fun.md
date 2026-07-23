@@ -15,29 +15,24 @@ calories: 0
 tools:
   - 炒锅
   - 不粘锅
-ingredients:
-  - name: 河粉
-    amount: 1 人份
-  - name: 牛肉
-    amount: 适量
-  - name: 豆芽
-    amount: 适量
-  - name: 青菜或葱段
-    amount: 适量
-  - name: 鸡蛋
-    amount: 1 个，可选
-  - name: 生抽
-    amount: 适量
-  - name: 老抽
-    amount: 少量，可选
-  - name: 蚝油
-    amount: 少量，可选
+ingredients: []
 favorite: false
 last_cooked:
 source_platform: 用户上传
 source_url:
 source_note: 用户上传成品图：干炒牛河
 ---
+
+## 原料
+
+- 河粉：1 人份
+- 牛肉：适量
+- 豆芽：适量
+- 青菜或葱段：适量
+- 鸡蛋：1 个，可选
+- 生抽：适量
+- 老抽：少量，可选
+- 蚝油：少量，可选
 
 ## 步骤
 

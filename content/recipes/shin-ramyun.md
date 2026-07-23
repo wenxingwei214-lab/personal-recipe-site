@@ -15,23 +15,21 @@ calories: 0
 tools:
   - 小锅
   - 汤锅
-ingredients:
-  - name: 辛拉面
-    amount: 1 包
-  - name: 鸡蛋
-    amount: 1 个，可选
-  - name: 午餐肉或火腿
-    amount: 适量，可选
-  - name: 海苔碎
-    amount: 适量，可选
-  - name: 葱花
-    amount: 少量，可选
+ingredients: []
 favorite: false
 last_cooked:
 source_platform: 用户上传
 source_url:
 source_note: 用户上传成品图：辛拉面，主食类
 ---
+
+## 原料
+
+- 辛拉面：1 包
+- 鸡蛋：1 个，可选
+- 午餐肉或火腿：适量，可选
+- 海苔碎：适量，可选
+- 葱花：少量，可选
 
 ## 步骤
 

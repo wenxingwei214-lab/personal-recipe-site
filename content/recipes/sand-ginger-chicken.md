@@ -15,43 +15,31 @@ calories: 0
 tools:
   - 砂锅
   - 炒锅
-ingredients:
-  - name: 鸡肉
-    amount: 500g
-  - name: 沙姜
-    amount: 60g
-  - name: 红葱头
-    amount: 5-6 个
-  - name: 大蒜
-    amount: 5-6 瓣
-  - name: 小葱
-    amount: 2 根
-  - name: 生抽
-    amount: 2 勺
-  - name: 蚝油
-    amount: 1 勺
-  - name: 老抽
-    amount: 半勺
-  - name: 料酒
-    amount: 1 勺
-  - name: 盐
-    amount: 半勺
-  - name: 白糖
-    amount: 半勺
-  - name: 玉米淀粉
-    amount: 1 勺
-  - name: 花生油
-    amount: 1 勺
-  - name: 食用油
-    amount: 2 勺
-  - name: 高度白酒或料酒
-    amount: 1 勺
+ingredients: []
 favorite: false
 last_cooked: "2026-06-08"
 source_platform: 图片识别
 source_url: ""
 source_note: 4-生活汇总/02-美食探店/菜谱做法/2026-06-08 沙姜鸡煲.md
 ---
+
+## 原料
+
+- 鸡肉：500g
+- 沙姜：60g
+- 红葱头：5-6 个
+- 大蒜：5-6 瓣
+- 小葱：2 根
+- 生抽：2 勺
+- 蚝油：1 勺
+- 老抽：半勺
+- 料酒：1 勺
+- 盐：半勺
+- 白糖：半勺
+- 玉米淀粉：1 勺
+- 花生油：1 勺
+- 食用油：2 勺
+- 高度白酒或料酒：1 勺
 
 ## 步骤
 

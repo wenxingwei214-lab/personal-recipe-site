@@ -16,29 +16,24 @@ calories: 0
 tools:
   - 炒锅
   - 电饭煲
-ingredients:
-  - name: 粉藕
-    amount: 1 节
-  - name: 排骨
-    amount: 适量
-  - name: 玉米
-    amount: 1 根
-  - name: 红枣
-    amount: 适量
-  - name: 花生
-    amount: 适量
-  - name: 大葱
-    amount: 适量
-  - name: 姜
-    amount: 适量
-  - name: 盐
-    amount: 适量
+ingredients: []
 favorite: false
 last_cooked: "2026-06-16"
 source_platform: 口述+本地封面
 source_url: ""
 source_note: 用户提供真实成品图，已替换网站封面
 ---
+
+## 原料
+
+- 粉藕：1 节
+- 排骨：适量
+- 玉米：1 根
+- 红枣：适量
+- 花生：适量
+- 大葱：适量
+- 姜：适量
+- 盐：适量
 
 ## 步骤
 

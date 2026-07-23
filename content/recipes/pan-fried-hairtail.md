@@ -14,21 +14,20 @@ servings: 2
 calories: 0
 tools:
   - 平底锅
-ingredients:
-  - name: 带鱼段
-    amount: 适量
-  - name: 姜片
-    amount: 少量，可选
-  - name: 盐
-    amount: 少量，可选
-  - name: 食用油或橄榄油喷雾
-    amount: 少量
+ingredients: []
 favorite: false
 last_cooked: "2026-07-19"
 source_platform: 用户实拍
 source_url: ""
 source_note: 用户上传香煎带鱼成品图；减脂版，少油少调料
 ---
+
+## 原料
+
+- 带鱼段：适量
+- 姜片：少量，可选
+- 盐：少量，可选
+- 食用油或橄榄油喷雾：少量
 
 ## 步骤
 

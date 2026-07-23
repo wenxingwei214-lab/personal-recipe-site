@@ -16,33 +16,26 @@ calories: 0
 tools:
   - 蒸锅
   - 炒锅
-ingredients:
-  - name: 鱼头
-    amount: 1 个
-  - name: 剁椒
-    amount: 3-4 勺
-  - name: 豆豉
-    amount: 1 勺，可选
-  - name: 蒜
-    amount: 4-5 瓣
-  - name: 姜
-    amount: 适量
-  - name: 小葱
-    amount: 适量
-  - name: 料酒
-    amount: 1 勺
-  - name: 蒸鱼豉油或生抽
-    amount: 1-2 勺
-  - name: 白糖
-    amount: 少量，可选
-  - name: 食用油
-    amount: 适量
+ingredients: []
 favorite: false
 last_cooked: "2026-07-19"
 source_platform: 用户实拍
 source_url: ""
 source_note: 用户上传剁椒鱼头成品图，已作为网站封面
 ---
+
+## 原料
+
+- 鱼头：1 个
+- 剁椒：3-4 勺
+- 豆豉：1 勺，可选
+- 蒜：4-5 瓣
+- 姜：适量
+- 小葱：适量
+- 料酒：1 勺
+- 蒸鱼豉油或生抽：1-2 勺
+- 白糖：少量，可选
+- 食用油：适量
 
 ## 步骤
 

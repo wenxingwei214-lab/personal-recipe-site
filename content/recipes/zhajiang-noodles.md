@@ -15,27 +15,23 @@ calories: 0
 tools:
   - 炒锅
   - 汤锅
-ingredients:
-  - name: 面条
-    amount: 1 人份
-  - name: 肉末
-    amount: 适量
-  - name: 黄瓜
-    amount: 半根，可选
-  - name: 甜面酱或黄豆酱
-    amount: 适量
-  - name: 葱姜蒜
-    amount: 少量
-  - name: 生抽
-    amount: 少量，可选
-  - name: 糖
-    amount: 少量，可选
+ingredients: []
 favorite: false
 last_cooked:
 source_platform: 用户上传
 source_url:
 source_note: 用户上传成品图：炸酱面
 ---
+
+## 原料
+
+- 面条：1 人份
+- 肉末：适量
+- 黄瓜：半根，可选
+- 甜面酱或黄豆酱：适量
+- 葱姜蒜：少量
+- 生抽：少量，可选
+- 糖：少量，可选
 
 ## 步骤
 

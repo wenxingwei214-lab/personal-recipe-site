@@ -15,31 +15,25 @@ calories: 0
 tools:
   - 汤锅
   - 炒锅
-ingredients:
-  - name: 宽面或扯面
-    amount: 1 人份
-  - name: 小葱
-    amount: 适量
-  - name: 蒜
-    amount: 3-4 瓣
-  - name: 辣椒面
-    amount: 1-2 勺
-  - name: 白芝麻
-    amount: 1 勺
-  - name: 生抽
-    amount: 1-2 勺
-  - name: 香醋
-    amount: 1 勺
-  - name: 盐
-    amount: 少量
-  - name: 食用油
-    amount: 适量
+ingredients: []
 favorite: false
 last_cooked: "2026-07-19"
 source_platform: 用户实拍
 source_url: ""
 source_note: 用户上传油泼面成品图，已作为网站封面
 ---
+
+## 原料
+
+- 宽面或扯面：1 人份
+- 小葱：适量
+- 蒜：3-4 瓣
+- 辣椒面：1-2 勺
+- 白芝麻：1 勺
+- 生抽：1-2 勺
+- 香醋：1 勺
+- 盐：少量
+- 食用油：适量
 
 ## 步骤
 

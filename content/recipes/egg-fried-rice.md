@@ -15,27 +15,23 @@ calories: 0
 tools:
   - 炒锅
   - 平底锅
-ingredients:
-  - name: 米饭
-    amount: 1 碗，最好是隔夜饭
-  - name: 鸡蛋
-    amount: 1-2 个
-  - name: 葱花
-    amount: 少量
-  - name: 洋葱
-    amount: 少量，可选
-  - name: 腊肠或火腿
-    amount: 适量，可选
-  - name: 盐
-    amount: 适量
-  - name: 生抽
-    amount: 少量，可选
+ingredients: []
 favorite: false
 last_cooked:
 source_platform: 用户上传
 source_url:
 source_note: 用户上传成品图：蛋炒饭，主食类
 ---
+
+## 原料
+
+- 米饭：1 碗，最好是隔夜饭
+- 鸡蛋：1-2 个
+- 葱花：少量
+- 洋葱：少量，可选
+- 腊肠或火腿：适量，可选
+- 盐：适量
+- 生抽：少量，可选
 
 ## 步骤
 

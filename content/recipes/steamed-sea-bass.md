@@ -14,27 +14,23 @@ servings: 2
 calories: 0
 tools:
   - 蒸锅
-ingredients:
-  - name: 鲈鱼
-    amount: 1 条
-  - name: 姜
-    amount: 适量
-  - name: 葱
-    amount: 适量
-  - name: 蒸鱼豉油
-    amount: 2-3 勺
-  - name: 食用油
-    amount: 适量
-  - name: 料酒
-    amount: 少量，可选
-  - name: 盐
-    amount: 少量，可选
+ingredients: []
 favorite: false
 last_cooked: "2025-07-15"
 source_platform: 用户实拍
 source_url: ""
 source_note: 用户上传清蒸鲈鱼成品图；网站封面已压缩到约 205KB，适合手机打开
 ---
+
+## 原料
+
+- 鲈鱼：1 条
+- 姜：适量
+- 葱：适量
+- 蒸鱼豉油：2-3 勺
+- 食用油：适量
+- 料酒：少量，可选
+- 盐：少量，可选
 
 ## 步骤
 

@@ -14,21 +14,20 @@ servings: 2
 calories: 0
 tools:
   - 炒锅
-ingredients:
-  - name: 芸豆
-    amount: 1 盘
-  - name: 腊肠
-    amount: 1-2 根
-  - name: 大蒜
-    amount: 2-3 瓣
-  - name: 盐
-    amount: 适量
+ingredients: []
 favorite: false
 last_cooked: "2026-06-08"
 source_platform: 口述
 source_url: ""
 source_note: 4-生活汇总/02-美食探店/菜谱做法/2026-06-08 芸豆炒腊肠.md
 ---
+
+## 原料
+
+- 芸豆：1 盘
+- 腊肠：1-2 根
+- 大蒜：2-3 瓣
+- 盐：适量
 
 ## 步骤
 

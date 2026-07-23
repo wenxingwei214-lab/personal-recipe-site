@@ -14,21 +14,20 @@ servings: 2
 calories: 0
 tools:
   - 炒锅
-ingredients:
-  - name: 油麦菜
-    amount: 1 把
-  - name: 豆豉鲮鱼罐头
-    amount: 适量
-  - name: 大蒜
-    amount: 2-3 瓣
-  - name: 蚝油
-    amount: 少量
+ingredients: []
 favorite: false
 last_cooked: "2026-06-08"
 source_platform: 口述
 source_url: ""
 source_note: 4-生活汇总/02-美食探店/菜谱做法/2026-06-08 鲮鱼油麦菜.md
 ---
+
+## 原料
+
+- 油麦菜：1 把
+- 豆豉鲮鱼罐头：适量
+- 大蒜：2-3 瓣
+- 蚝油：少量
 
 ## 步骤
 
