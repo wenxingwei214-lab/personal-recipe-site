@@ -78,6 +78,14 @@ document.querySelector("#clear-filters")?.addEventListener("click", () => {
   applyFilters();
 });
 
+document.querySelector(".search-card")?.addEventListener("submit", (event) => {
+  if (!searchInput) return;
+  event.preventDefault();
+  state.search = searchInput.value;
+  applyFilters();
+  document.querySelector("#recipes")?.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
 const params = new URLSearchParams(location.search);
 if (params.has("tag")) state.tag = params.get("tag") || "";
 if (params.has("category")) state.tag = params.get("category") || "";

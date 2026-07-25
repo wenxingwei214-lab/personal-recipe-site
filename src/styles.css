@@ -227,6 +227,10 @@ main {
   padding-top: 28px;
 }
 
+#recipes {
+  scroll-margin-top: 88px;
+}
+
 .section-head {
   display: flex;
   align-items: end;
@@ -337,12 +341,16 @@ main {
 .filters {
   display: grid;
   gap: 12px;
-  margin-top: -12px;
+  margin: 14px 0 18px;
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.72);
   box-shadow: var(--soft-shadow);
+}
+
+.filters > .button {
+  justify-self: start;
 }
 
 .list-search {
@@ -492,7 +500,7 @@ footer {
 
   nav {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 6px;
   }
 
