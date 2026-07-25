@@ -26,7 +26,7 @@ description: 快速维护 Obsidian 驱动的个人菜谱网站：把用户口述
 
 步骤：
 
-1. 从用户素材生成 `content/recipes/<slug>.md`。
+1. 从用户素材生成 `content/recipes/YYYY-MM-DD 菜名.md`，让 Obsidian 侧边栏能直接看到创建日期和中文菜名。
 2. 如有图片，必须先处理成手机版友好的 `assets/images/<slug>.jpg`，再写 `cover`。
 3. 更新 `01-我的菜谱清单.md`。
 4. 运行 `npm run build`。
@@ -56,7 +56,7 @@ python3 skills/recipe-capture/scripts/approve_recipe.py \
 
 当用户说图片黑、慢、打不开、想换封面：
 
-1. 先查 `content/recipes/<slug>.md` 的 `cover`。
+1. 先按菜名或 `slug` 查 `content/recipes` 里的菜谱文件，再看 `cover`。
 2. 图片必须先保存到本地临时文件或 `assets/images`，不要只贴外站图片 URL 给用户。
 3. 用 `view_image` 或等价方式确认图片能显示、不是黑图。
 4. 转为 JPG，最长边建议 `1100px`，质量 `68` 左右，目标通常小于 `350KB`。
@@ -93,6 +93,8 @@ grep -n "<img" docs/recipes/index.html | head -12
 需要包含：
 
 - `title`
+- `slug`
+- `created`
 - `category`
 - `tags`
 - `cover`
@@ -111,6 +113,8 @@ grep -n "<img" docs/recipes/index.html | head -12
 正文顺序：
 
 ```markdown
+## 原料
+
 ## 步骤
 
 ## 注意事项

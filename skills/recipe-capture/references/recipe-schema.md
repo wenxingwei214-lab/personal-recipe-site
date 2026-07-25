@@ -5,6 +5,8 @@
 ```yaml
 ---
 title: 菜名
+slug: english-slug
+created: YYYY-MM-DD
 category: 家常快手
 tags: [快手菜, 下饭菜]
 cover: /assets/images/placeholder.svg
@@ -14,9 +16,7 @@ servings: 2
 calories: 0
 tools:
   - 炒锅
-ingredients:
-  - name: 食材名
-    amount: 用量
+ingredients: []
 favorite: false
 last_cooked: ""
 approved: false
@@ -29,6 +29,8 @@ source_note: 4-生活汇总/02-美食探店/菜谱做法/待审批/example.md
 ## 网站必需字段
 
 - `title`：菜名。
+- `slug`：稳定英文网址名，例如 `perilla-pork-ribs`；即使 Obsidian 文件名是中文，网站网址也用这个。
+- `created`：创建日期，格式 `YYYY-MM-DD`；同时用于 Obsidian 文件名排序。
 - `category`：一个简短分类。
 - `tags`：便于搜索的标签列表。
 - `cover`：图片路径，通常在 `/assets/images/` 下；没有图片时用 `/assets/images/placeholder.svg`。
@@ -37,7 +39,7 @@ source_note: 4-生活汇总/02-美食探店/菜谱做法/待审批/example.md
 - `servings`：数字，表示份量/人数。
 - `calories`：数字估计值；不清楚就填 `0`。
 - `tools`：厨具列表。
-- `ingredients`：食材列表，格式是 `{ name, amount }`。
+- `ingredients`：兼容字段，正式菜谱填 `[]`；真正给人编辑的食材写在正文 `## 原料`。
 - `favorite`：布尔值，`true` 或 `false`。
 - `last_cooked`：上次做这道菜的日期，格式 `YYYY-MM-DD`；没有就填空字符串 `""`。
 
@@ -51,6 +53,10 @@ source_note: 4-生活汇总/02-美食探店/菜谱做法/待审批/example.md
 ## 已入库菜谱正文格式
 
 ```markdown
+## 原料
+
+- 食材名：用量
+
 ## 步骤
 
 1. ...

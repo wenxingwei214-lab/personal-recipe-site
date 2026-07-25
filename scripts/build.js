@@ -275,11 +275,13 @@ function readRecipes() {
       const fullPath = path.join(recipesDir, file);
       const { data, body } = parseFrontmatter(fs.readFileSync(fullPath, "utf8"));
       if (data.draft === true) return null;
-      const slug = slugFromFile(file);
+      const fileUpdatedAt = fs.statSync(fullPath).mtime.toISOString().slice(0, 10);
+      const slug = data.slug || slugFromFile(file);
       const ingredientSection = extractSection(body, ["原料", "食材"]);
       const bodyIngredients = parseIngredientsFromMarkdown(ingredientSection.section);
       return {
         slug,
+        created: data.created || fileUpdatedAt,
         title: data.title || slug,
         category: data.category || "未分类",
         tags: data.tags || [],
@@ -292,12 +294,12 @@ function readRecipes() {
         calories: data.calories || "",
         favorite: Boolean(data.favorite),
         last_cooked: data.last_cooked || "",
-        updatedAt: fs.statSync(fullPath).mtime.toISOString().slice(0, 10),
+        updatedAt: fileUpdatedAt,
         bodyHtml: markdownToHtml(ingredientSection.markdown)
       };
     })
     .filter(Boolean)
-    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+    .sort((a, b) => b.created.localeCompare(a.created) || b.updatedAt.localeCompare(a.updatedAt));
 }
 
 function readSiteConfig() {
